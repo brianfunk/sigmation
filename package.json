@@ -1,0 +1,40 @@
+{
+  "name": "sigmation",
+  "version": "0.0.1",
+  "description": "Sigmation API for rendering math (AsciiMath, TeX) in SVG, HTML, PNG, and MML",
+  "main": "index.js",
+  "scripts": {
+	"start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brianfunk/sigmation.git"
+  },
+  "keywords": [
+    "sigmation",
+    "sigma",
+    "summation",
+    "math",
+    "mathematics",
+    "svg",
+    "png",
+    "mml",
+    "html",
+    "ascii"
+  ],
+  "author": "Brian Funk",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.1",
+    "dotenv": "^4.0.0",
+    "express": "^4.14.1",
+    "file-stream-rotator": "0.0.7",
+    "helmet": "^3.4.0",
+    "mathjax-node": "^0.5.2",
+    "mkdirp": "^0.5.1",
+    "morgan": "^1.8.1",
+    "path": "^0.12.7",
+    "svg2png": "^4.1.1"
+  }
+}
