@@ -181,8 +181,21 @@ export default function App() {
                   <>
                     <label>
                       Badge label
-                      <input type="text" value={p.label} placeholder="Σ" onChange={(e) => set('label', e.target.value)} maxLength={40} />
+                      <select
+                        value={p.label === '' || p.label === 'Σigmation' ? p.label : 'custom'}
+                        onChange={(e) => set('label', e.target.value === 'custom' ? 'label' : e.target.value)}
+                      >
+                        <option value="">Σ</option>
+                        <option value="Σigmation">Σigmation</option>
+                        <option value="custom">Custom…</option>
+                      </select>
                     </label>
+                    {p.label !== '' && p.label !== 'Σigmation' && (
+                      <label>
+                        Custom label
+                        <input type="text" value={p.label} onChange={(e) => set('label', e.target.value || 'label')} maxLength={40} />
+                      </label>
+                    )}
                     <label>
                       Badge color
                       <input type="text" value={p.badgeColor} placeholder="4c1" onChange={(e) => set('badgeColor', e.target.value)} maxLength={9} />
