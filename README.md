@@ -1,7 +1,7 @@
 [![Σigmation](https://sigmation.netlify.app/badge?m=sum_(i=1)^N%202^i&label=%CE%A3igmation)](https://sigmation.netlify.app)
 [![npm version](https://img.shields.io/npm/v/sigmation.svg)](https://www.npmjs.com/package/sigmation)
 [![CI](https://github.com/brianfunk/sigmation/actions/workflows/ci.yml/badge.svg)](https://github.com/brianfunk/sigmation/actions/workflows/ci.yml)
-[![Netlify Status](https://api.netlify.com/api/v1/badges/7d7afa4e-4dc4-465a-a910-b89fba2cd442/deploy-status)](https://app.netlify.com/projects/sigmation/deploys)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/648ac12f-d7d2-4902-9c94-7ff5f0e0f5df/deploy-status)](https://app.netlify.com/projects/sigmation/deploys)
 [![Semver](https://img.shields.io/badge/SemVer-2.0-blue.svg)](http://semver.org/spec/v2.0.0.html)
 [![License](https://img.shields.io/github/license/mashape/apistatus.svg)](https://opensource.org/licenses/MIT)
 [![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badge/)
