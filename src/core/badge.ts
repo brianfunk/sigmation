@@ -1,5 +1,5 @@
 import { escapeXml, render } from './render.js';
-import { resolveOptions, type RenderOptions } from './options.js';
+import { normalizeColor, resolveOptions, type RenderOptions } from './options.js';
 
 const BADGE_H = 20;
 const PAD = 6;
@@ -24,16 +24,21 @@ function nest(svg: string, x: number, h: number): { markup: string; width: numbe
 }
 
 /**
- * Shields.io-style flat badge: grey label on the left, the equation on a colored field on the right.
+ * Shields.io-style flat badge: label on the left, the equation on a colored field on the right.
  * Both halves are rendered by MathJax so the whole badge is pure paths.
+ *
+ * Option mapping for badges: `color` is the ink for both halves (default white),
+ * `bg` is the label field (default #555), `badgeColor` is the equation field (default #4c1).
  */
 export async function toBadge(input: unknown, opts: RenderOptions = {}): Promise<string> {
   const math = typeof input === 'string' ? input : '';
   const resolved = resolveOptions(math || 'x', opts, 'badge');
   const label = resolved.label;
+  const ink = opts.color ? normalizeColor(opts.color) : '#ffffff';
+  const labelBg = opts.bg && opts.bg.toLowerCase() !== 'transparent' ? normalizeColor(opts.bg, 'background') : '#555';
 
-  const eq = await render(input, { ...opts, color: '#ffffff', bg: 'transparent', scale: 1, inline: true }, 'badge');
-  const lbl = await render(`\\textsf{${texText(label)}}`, { lang: 'tex', color: '#ffffff', bg: 'transparent', scale: 1, inline: true }, 'badge');
+  const eq = await render(input, { ...opts, color: ink, bg: 'transparent', scale: 1, inline: true }, 'badge');
+  const lbl = await render(`\\textsf{${texText(label)}}`, { lang: 'tex', color: ink, bg: 'transparent', scale: 1, inline: true }, 'badge');
 
   const labelPart = nest(lbl.svg, PAD, CONTENT_H * 0.78);
   const leftW = Math.round(labelPart.width + PAD * 2);
@@ -47,7 +52,7 @@ export async function toBadge(input: unknown, opts: RenderOptions = {}): Promise
     `<linearGradient id="s" x2="0" y2="100%"><stop offset="0" stop-color="#bbb" stop-opacity=".1"/><stop offset="1" stop-opacity=".1"/></linearGradient>` +
     `<clipPath id="r"><rect width="${totalW}" height="${BADGE_H}" rx="3" fill="#fff"/></clipPath>` +
     `<g clip-path="url(#r)">` +
-    `<rect width="${leftW}" height="${BADGE_H}" fill="#555"/>` +
+    `<rect width="${leftW}" height="${BADGE_H}" fill="${labelBg}"/>` +
     `<rect x="${leftW}" width="${rightW}" height="${BADGE_H}" fill="${resolved.badgeColor}"/>` +
     `<rect width="${totalW}" height="${BADGE_H}" fill="url(#s)"/>` +
     `</g>` +

@@ -76,7 +76,13 @@ export const openapi = {
   paths: {
     '/svg': render('SVG', 'Standalone SVG document sized in px.', COMMON, ok('image/svg+xml', 'SVG image')),
     '/png': render('PNG', 'Rasterized PNG. Default `scale` is 2 for crispness. Fully transparent unless `bg` is set.', [...COMMON, ...PNG_ONLY], ok('image/png', 'PNG image', 'binary')),
-    '/badge': render('Badge', 'Shields-style pill: grey label on the left, equation on a colored field on the right. 20px tall, pure vector paths.', [COMMON[0]!, COMMON[1]!, ...BADGE_ONLY], ok('image/svg+xml', 'SVG badge')),
+    '/badge': render(
+      'Badge',
+      'Shields-style pill: label on the left, equation on a colored field on the right. 20px tall, pure vector paths. ' +
+        'For badges, `color` is the ink for both halves (default white), `bg` is the label field (default `555`), `badgeColor` is the equation field.',
+      [COMMON[0]!, COMMON[1]!, q('color', 'Ink for label and equation, hex.', { ...hex, default: 'ffffff' }), q('bg', 'Label field background, hex.', { ...hex, default: '555' }), ...BADGE_ONLY],
+      ok('image/svg+xml', 'SVG badge'),
+    ),
     '/mml': render('MathML', 'Presentation MathML.', [COMMON[0]!, COMMON[1]!, COMMON[6]!], ok('application/mathml+xml', 'MathML document')),
     '/html': render('HTML page', 'A minimal standalone HTML page with the SVG inline, for linking rather than embedding.', COMMON, ok('text/html', 'HTML page')),
     '/math.{ext}': {

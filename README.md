@@ -51,7 +51,9 @@ Every endpoint is a `GET`. Output is a pure function of the URL, so responses ar
 | `inline` | `1` for text-style instead of display-style | `0` |
 | `w`, `h` | exact width or height in px (png only) | |
 | `label` | badge label | `Σ` |
-| `badgeColor` | badge right-side hex | `4c1` |
+| `badgeColor` | badge right-side (equation field) hex | `4c1` |
+
+For `/badge`, `color` is the ink for both halves (default `ffffff`) and `bg` is the label field (default `555`).
 
 Input is limited to 2000 characters. TeX runs with the standard MathJax packages minus `\require`.
 

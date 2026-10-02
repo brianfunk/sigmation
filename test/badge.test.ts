@@ -19,6 +19,17 @@ describe('badge', () => {
     expect(svg).toContain('fill="#007ec6"');
   });
 
+  it('maps color to ink and bg to the label field', async () => {
+    const svg = await toBadge('x', { color: '#112233', bg: 'eeeeee' });
+    expect(svg).toContain('fill="#eeeeee"');
+    expect(svg).not.toContain('fill="#555"');
+    expect(svg).toContain('#112233');
+    expect(svg).not.toContain('#ffffff');
+    const plain = await toBadge('x', { bg: 'transparent' });
+    expect(plain).toContain('fill="#555"');
+    expect(plain).toContain('#ffffff');
+  });
+
   it('rasterizes cleanly', async () => {
     const png = await svgToPng(await toBadge('sum_(i=1)^N 2^i'));
     expect(png[0]).toBe(0x89);

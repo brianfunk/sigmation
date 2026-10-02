@@ -163,13 +163,19 @@ export default function App() {
                   </select>
                 </label>
                 <ColorField
-                  label="Color"
+                  label={p.format === 'badge' ? 'Ink' : 'Color'}
                   value={p.color}
-                  fallback={p.theme === 'dark' ? 'ffffff' : '000000'}
-                  fallbackLabel={p.theme === 'dark' ? 'ffffff' : '000000'}
+                  fallback={p.format === 'badge' ? 'ffffff' : p.theme === 'dark' ? 'ffffff' : '000000'}
+                  fallbackLabel={p.format === 'badge' ? 'ffffff' : p.theme === 'dark' ? 'ffffff' : '000000'}
                   onChange={(v) => set('color', v)}
                 />
-                <ColorField label="Background" value={p.bg} fallback="ffffff" fallbackLabel="transparent" onChange={(v) => set('bg', v)} />
+                <ColorField
+                  label={p.format === 'badge' ? 'Label field' : 'Background'}
+                  value={p.bg}
+                  fallback={p.format === 'badge' ? '555555' : 'ffffff'}
+                  fallbackLabel={p.format === 'badge' ? '555' : 'transparent'}
+                  onChange={(v) => set('bg', v)}
+                />
                 <label className={p.format === 'badge' ? 'off' : ''}>
                   Scale
                   <input type="number" min={0.25} max={8} step={0.25} value={p.scale} onChange={(e) => set('scale', Number(e.target.value) || 1)} disabled={p.format === 'badge'} />
@@ -197,7 +203,7 @@ export default function App() {
                         <input type="text" value={p.label} onChange={(e) => set('label', e.target.value || 'label')} maxLength={40} />
                       </label>
                     )}
-                    <ColorField label="Badge color" value={p.badgeColor} fallback="4c1" fallbackLabel="4c1" onChange={(v) => set('badgeColor', v)} />
+                    <ColorField label="Equation field" value={p.badgeColor} fallback="4c1" fallbackLabel="4c1" onChange={(v) => set('badgeColor', v)} />
                   </>
                 )}
               </div>

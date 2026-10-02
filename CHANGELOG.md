@@ -13,6 +13,7 @@ Website only; the npm package is unchanged since 1.0.2.
 - PNG transparency regression tests (fully transparent unless `bg` is set).
 
 ### Changed
+- Badges honor `color` (ink for both halves, default white) and `bg` (label field, default `555`). Previously both were ignored. Ships in the next npm version.
 - Website is the playground only: npm, CLI and GitHub Action docs live in the README. Logo and wordmark moved into the header; footer shows a year-aware copyright and no personal name.
 - Format tab order: SVG, PNG, MathML, HTML, Badge. The `inline` option is labeled "Compact (text style)".
 - Site URL is `sigmations.netlify.app`; `dev` is the production branch.
