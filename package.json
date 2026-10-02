@@ -1,6 +1,6 @@
 {
   "name": "sigmation",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Σigmation — render math (AsciiMath, TeX) to SVG, PNG, MathML, HTML and badges. Library, CLI and API.",
   "type": "module",
   "main": "./dist/index.js",
