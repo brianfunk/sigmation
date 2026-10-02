@@ -17,10 +17,12 @@ All notable changes to this project are documented here. The format follows [Kee
 - Format tab order: SVG, PNG, MathML, HTML, Badge. The `inline` option is labeled "Compact (text style)".
 - Site URL is `sigmations.netlify.app`; `dev` is the production branch.
 
-## [1.0.3] - 2026-10-02
+## [1.0.4] - 2026-10-02
 
 ### Added
-- `/html` pages carry Open Graph and Twitter tags with a per-equation PNG, so pasting an `/html` link into Slack, Discord or X unfurls with the rendered math. Library: `toHtml(input, rendered, { baseUrl })` and `sigmation(..., { baseUrl })`.
+- `/html` pages carry Open Graph and Twitter tags with a per-equation PNG, so pasting an `/html` link into Slack, Discord or X unfurls with the rendered math. Library: `toHtml(input, rendered, { baseUrl })` and `sigmation(..., { baseUrl })`. (Listed under 1.0.3 earlier by mistake; it shipped here.)
+
+## [1.0.3] - 2026-10-02
 
 ### Changed
 - Badges honor `color` (ink for both halves, default white) and `bg` (label field, default `555`). Previously both were ignored.
