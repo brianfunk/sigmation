@@ -115,6 +115,7 @@ npm run build       # lib + cli to dist/, site to dist/site
 netlify dev         # site + API on http://localhost:8890 (Vite pinned to 5600)
 npm run dev:api     # API alone on :8890 without Netlify
 npm run assets      # regenerate favicon, PNG icons and og.png in public/
+npm run test:e2e    # Playwright: layout at phone/tablet/desktop widths plus playground flows
 ```
 
 Layout:

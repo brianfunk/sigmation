@@ -16,6 +16,7 @@ npx tsc -b             # typecheck lib + site
 npm run build          # tsup + tsc declarations to dist/, vite site to dist/site
 netlify dev            # site + function on http://localhost:8890 (Vite pinned to 5600)
 npm run dev:api        # API only on :8890 via @hono/node-server, no Netlify
+npm run test:e2e       # Playwright, headless; starts dev:api and vite itself if they are not running
 ```
 
 ## Architecture

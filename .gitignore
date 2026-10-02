@@ -47,3 +47,7 @@ dist
 
 # Netlify dev artifacts
 deno.lock
+
+# Playwright
+playwright-report
+test-results
