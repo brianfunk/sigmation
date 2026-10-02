@@ -71,6 +71,8 @@ textarea:focus, input:focus, select:focus { outline: 2px solid var(--accent); ou
 .btn { display: inline-flex; align-items: center; gap: 6px; text-decoration: none; }
 .btn.on { border-color: var(--accent); color: var(--accent); }
 .qr { display: flex; align-items: center; gap: 14px; margin-top: 12px; }
+.qractions { display: flex; flex-direction: column; gap: 6px; }
+.btn.icon { padding: 7px; border-radius: 8px; }
 .qrcode { background: #fff; padding: 6px; border-radius: 8px; line-height: 0; }
 .qrcode svg { width: 132px; height: 132px; display: block; }
 .chip:hover, .btn:hover { border-color: var(--accent); }

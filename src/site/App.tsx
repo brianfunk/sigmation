@@ -4,7 +4,7 @@ import { DEFAULTS, buildPath, decodeState, encodeState, origin, type Format, typ
 import { renderSVG as qrSvg } from 'uqr';
 import Nav from './Nav';
 import ColorField from './ColorField';
-import { BadgeIcon, CheckIcon, CodeIcon, DownloadIcon, HtmlIcon, ImageIcon, LinkIcon, MarkdownIcon, MathMLIcon, QrIcon, ShareIcon, VectorIcon } from './Icons';
+import { BadgeIcon, CheckIcon, CodeIcon, CopyIcon, DownloadIcon, HtmlIcon, ImageIcon, LinkIcon, MarkdownIcon, MathMLIcon, QrIcon, ShareIcon, VectorIcon } from './Icons';
 
 const FORMATS: Array<{ id: Format; name: string; icon: () => JSX.Element; ext: string }> = [
   { id: 'svg', name: 'SVG', icon: VectorIcon, ext: 'svg' },
@@ -21,6 +21,67 @@ function useDebounced<T>(value: T, ms: number): T {
     return () => clearTimeout(t);
   }, [value, ms]);
   return v;
+}
+
+/** Rasterize an SVG string in the browser to a PNG blob. */
+function svgToPngBlob(svg: string, size: number): Promise<Blob> {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    const url = URL.createObjectURL(new Blob([svg], { type: 'image/svg+xml' }));
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      canvas.width = size;
+      canvas.height = size;
+      const ctx = canvas.getContext('2d')!;
+      ctx.fillStyle = '#fff';
+      ctx.fillRect(0, 0, size, size);
+      ctx.drawImage(img, 0, 0, size, size);
+      URL.revokeObjectURL(url);
+      canvas.toBlob((b) => (b ? resolve(b) : reject(new Error('toBlob failed'))), 'image/png');
+    };
+    img.onerror = () => reject(new Error('svg load failed'));
+    img.src = url;
+  });
+}
+
+function QrPanel({ svg, name }: { svg: string; name: string }) {
+  const [copied, setCopied] = useState(false);
+  const copy = async () => {
+    try {
+      const blob = await svgToPngBlob(svg, 512);
+      await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1200);
+    } catch {
+      /* clipboard images unsupported in this browser */
+    }
+  };
+  const download = async () => {
+    try {
+      const blob = await svgToPngBlob(svg, 1024);
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = name;
+      a.click();
+      setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+    } catch {
+      /* ignore */
+    }
+  };
+  return (
+    <div className="qr">
+      <div className="qrcode" dangerouslySetInnerHTML={{ __html: svg }} />
+      <div className="qractions">
+        <button type="button" className="btn icon" onClick={copy} title="Copy QR code as image" aria-label="Copy QR code as image">
+          {copied ? <CheckIcon /> : <CopyIcon />}
+        </button>
+        <button type="button" className="btn icon" onClick={download} title="Download QR code as PNG" aria-label="Download QR code as PNG">
+          <DownloadIcon />
+        </button>
+      </div>
+      <p className="muted">Scan to open the rendered image.</p>
+    </div>
+  );
 }
 
 function CopyButton({ text, label, icon }: { text: string; label: string; icon: () => JSX.Element }) {
@@ -257,12 +318,7 @@ export default function App() {
                   {shared ? 'Link copied' : 'Share'}
                 </button>
               </div>
-              {showQr && !empty && (
-                <div className="qr">
-                  <div className="qrcode" dangerouslySetInnerHTML={{ __html: qrSvg(url, { border: 1, pixelSize: 4 }) }} />
-                  <p className="muted">Scan to open the rendered image.</p>
-                </div>
-              )}
+              {showQr && !empty && <QrPanel svg={qrSvg(url, { border: 1, pixelSize: 4 })} name="sigmation-qr.png" />}
             </div>
           </div>
         </section>
