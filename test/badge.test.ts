@@ -6,6 +6,7 @@ describe('badge', () => {
   it('renders a 20px-high pill with default label', async () => {
     const svg = await toBadge('E=mc^2');
     expect(svg).toContain('height="20"');
+    expect(svg).toMatch(/^<svg[^>]* viewBox="0 0 \d+ 20"/);
     expect(svg).toContain('<title>Σ: E=mc^2</title>');
     expect(svg).toContain('fill="#4c1"');
     expect(svg).toContain('fill="#555"');

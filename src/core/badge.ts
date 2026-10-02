@@ -42,7 +42,7 @@ export async function toBadge(input: unknown, opts: RenderOptions = {}): Promise
   const totalW = leftW + rightW;
 
   return (
-    `<svg xmlns="http://www.w3.org/2000/svg" width="${totalW}" height="${BADGE_H}" role="img" aria-label="${escapeXml(label)}: ${escapeXml(math)}">` +
+    `<svg xmlns="http://www.w3.org/2000/svg" width="${totalW}" height="${BADGE_H}" viewBox="0 0 ${totalW} ${BADGE_H}" role="img" aria-label="${escapeXml(label)}: ${escapeXml(math)}">` +
     `<title>${escapeXml(label)}: ${escapeXml(math)}</title>` +
     `<linearGradient id="s" x2="0" y2="100%"><stop offset="0" stop-color="#bbb" stop-opacity=".1"/><stop offset="1" stop-opacity=".1"/></linearGradient>` +
     `<clipPath id="r"><rect width="${totalW}" height="${BADGE_H}" rx="3" fill="#fff"/></clipPath>` +

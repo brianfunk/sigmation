@@ -54,7 +54,7 @@ textarea:focus, input:focus, select:focus { outline: 2px solid var(--accent); ou
 .preview.dark { background: repeating-conic-gradient(#2a2e2b 0 25%, #151715 0 50%) 0 0 / 16px 16px; }
 .preview .svg { display: contents; }
 .preview .svg svg { max-width: 100%; height: auto; transition: opacity 0.15s; }
-.preview.badge .svg svg { height: 48px; width: auto; }
+.preview.badge .svg > svg { height: 48px; width: auto; }
 .preview .stale svg { opacity: 0.5; }
 .err { color: var(--err); margin: 0; font-family: var(--mono); font-size: 0.95rem; background: var(--panel); padding: 6px 10px; border-radius: 6px; }
 .muted { color: var(--muted); }
