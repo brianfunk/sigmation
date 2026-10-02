@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { EXAMPLES } from './examples';
 import { DEFAULTS, buildPath, origin, type Format, type Params } from './url';
 import Docs from './Docs';
+import Nav from './Nav';
 
 const FORMATS: Array<{ id: Format; name: string }> = [
   { id: 'svg', name: 'SVG' },
@@ -87,12 +88,13 @@ export default function App() {
 
   return (
     <>
+      <Nav />
       <header className="hero">
         <div className="wrap">
           <h1>
             <span className="sigma">Σ</span>igmation
           </h1>
-          <p className="tagline">Math to SVG, PNG, MathML and README badges. One URL, no account.</p>
+          <p className="tagline">Math to SVG, PNG, MathML and badges. One URL, no account.</p>
         </div>
       </header>
 
@@ -208,8 +210,7 @@ export default function App() {
 
       <footer className="wrap foot">
         <p>
-          <a href="https://github.com/brianfunk/sigmation">GitHub</a> · <a href="https://www.npmjs.com/package/sigmation">npm</a> · MIT ·{' '}
-          <a href="https://www.linkedin.com/in/brianrandyfunk">Brian Funk</a>
+          <a href="https://github.com/brianfunk/sigmation">Source</a> · <a href="https://www.npmjs.com/package/sigmation">Package</a> · MIT license
         </p>
       </footer>
     </>

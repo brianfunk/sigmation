@@ -12,8 +12,9 @@
   --font: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 }
+/* Dark tokens apply when the OS prefers dark and the user has not chosen light, or when the user chose dark. */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     --bg: #0f1110;
     --fg: #e7e5e4;
     --muted: #a8a29e;
@@ -25,13 +26,31 @@
     --code: #1f2321;
   }
 }
+:root[data-theme="dark"] {
+    --bg: #0f1110;
+    --fg: #e7e5e4;
+    --muted: #a8a29e;
+    --panel: #171a18;
+    --line: #2a2e2b;
+    --accent: #22c55e;
+    --accent-ink: #052e16;
+    --err: #f87171;
+    --code: #1f2321;
+  }
 * { box-sizing: border-box; }
 html, body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.5 var(--font); }
 a { color: var(--accent); }
 code, pre, textarea, .url { font-family: var(--mono); }
 .wrap { max-width: 920px; margin: 0 auto; padding: 0 16px; }
 
-.hero { padding: 40px 0 8px; }
+.nav { display: flex; align-items: center; justify-content: space-between; padding-top: 14px; padding-bottom: 14px; }
+.brand { font-weight: 700; font-size: 1.15rem; color: var(--fg); text-decoration: none; letter-spacing: -0.01em; }
+.links { display: flex; align-items: center; gap: 4px; }
+.links a, .links .mode { display: inline-flex; align-items: center; gap: 6px; padding: 6px 10px; border-radius: 8px; color: var(--fg); text-decoration: none; font-size: 0.9rem; border: 1px solid transparent; background: transparent; font: inherit; cursor: pointer; }
+.links a:hover, .links .mode:hover { border-color: var(--line); background: var(--panel); }
+.links svg { display: block; }
+
+.hero { padding: 24px 0 8px; }
 .hero h1 { font-size: clamp(2rem, 6vw, 3rem); margin: 0; letter-spacing: -0.02em; }
 .sigma { color: var(--accent); }
 .tagline { margin: 4px 0 0; color: var(--muted); font-size: 1.05rem; }
@@ -85,6 +104,7 @@ textarea:focus, input:focus, select:focus { outline: 2px solid var(--accent); ou
 .foot { margin: 56px auto 32px; color: var(--muted); font-size: 0.9rem; }
 
 @media (max-width: 600px) {
-  .hero { padding-top: 28px; }
+  .hero { padding-top: 16px; }
+  .links a span { display: none; }
   .grid { grid-template-columns: 1fr 1fr; }
 }
