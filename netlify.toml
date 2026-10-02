@@ -7,6 +7,11 @@
 [build.environment]
   NODE_VERSION = "22"
 
+[dev]
+  command = "npm run dev"
+  targetPort = 5600
+  port = 8890
+
 [functions]
   directory = "netlify/functions"
   node_bundler = "esbuild"
