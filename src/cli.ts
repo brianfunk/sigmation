@@ -139,6 +139,5 @@ export async function main(argv = process.argv.slice(2)): Promise<number> {
   }
 }
 
-if (process.argv[1] && /[\\/]cli\.(js|ts)$/.test(process.argv[1])) {
-  main().then((code) => process.exit(code));
-}
+// This file is only ever an entry point (bin or `node dist/cli.js`), so always run.
+main().then((code) => process.exit(code));
