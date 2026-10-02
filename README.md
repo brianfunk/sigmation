@@ -127,7 +127,7 @@ Layout:
 - `scripts/assets.mts`: generates the icons and Open Graph image in `public/`
 - `action/action.yml`: the composite GitHub Action
 
-Branches: `dev` is production and deploys to Netlify on every merge. PRs target `dev`.
+Branches: `dev` is production, protected, and deploys to Netlify on every merge. All changes go through a PR targeting `dev` with green CI. Agent-facing notes live in `AGENTS.md`.
 
 ## Releasing
 
