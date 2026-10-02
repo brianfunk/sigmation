@@ -6,7 +6,7 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ### Added
 - Playground state lives in the page URL hash, so a link to the site reopens the same equation, format and colors.
-- QR button (code that opens the rendered image) and Share button (Web Share API, falling back to copying the playground link).
+- QR button (code that opens the rendered image, with copy-as-image and download-PNG buttons) and Share button (Web Share API, falling back to copying the playground link).
 - Swagger UI API reference at `/docs/`, driven by an OpenAPI 3.1 spec served at `/openapi.json` (and `/api/openapi.json`). A test asserts the spec's paths match the live routes.
 - Playground: famous-equation samples (Pythagoras, mass–energy, Schrödinger, Einstein field, Newton, entropy, normal distribution, Fourier), color picker swatches for color, background and badge color, badge label dropdown, Download button, icons on format tabs and actions, light/dark mode toggle.
 - SEO and icons: canonical, Open Graph and Twitter tags, generated `og.png`, JSON-LD, web manifest, PNG icons, `robots.txt`, `sitemap.xml`. Favicon rebuilt from a MathJax Σ glyph path. `npm run assets` regenerates them.
