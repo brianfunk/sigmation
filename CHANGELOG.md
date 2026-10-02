@@ -16,6 +16,9 @@ All notable changes to this project are documented here. The format follows [Kee
 ### Fixed
 - Mobile layout: format tabs and language toggle wrap instead of overflowing; color fields fit their grid cell at 375px.
 
+### Removed
+- `CLAUDE.md`. `AGENTS.md` is the single agent instructions file.
+
 ### Changed
 - Website is the playground only: npm, CLI and GitHub Action docs live in the README. Logo and wordmark moved into the header; footer shows a year-aware copyright and no personal name.
 - Format tab order: SVG, PNG, MathML, HTML, Badge. The `inline` option is labeled "Compact (text style)".
@@ -55,7 +58,7 @@ Full rewrite. Same idea as 2017, none of the same code.
 - Immutable cache headers and ETag on every API response; JSON 400 for bad input, including TeX syntax errors and undefined macros.
 - React playground with live preview, copy-as-URL/Markdown/`<img>`, and docs.
 - Composite GitHub Action that renders an equation to a file.
-- Vitest suite, ESLint, CI on Node 22 and 24.
+- Vitest suite, ESLint, CI on Node 22 and 24, `AGENTS.md` for agent instructions.
 
 ### Changed
 - MathJax 4 replaces mathjax-node 0.5; `@resvg/resvg-wasm` replaces svg2png/PhantomJS; Hono replaces Express; Netlify replaces Heroku.
