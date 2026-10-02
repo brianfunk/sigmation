@@ -1,0 +1,29 @@
+import { describe, expect, it } from 'vitest';
+import { toBadge } from '../src/core/badge.js';
+import { svgToPng } from '../src/core/png.js';
+
+describe('badge', () => {
+  it('renders a 20px-high pill with default label', async () => {
+    const svg = await toBadge('E=mc^2');
+    expect(svg).toContain('height="20"');
+    expect(svg).toContain('<title>Σ: E=mc^2</title>');
+    expect(svg).toContain('fill="#4c1"');
+    expect(svg).toContain('fill="#555"');
+    expect(svg).not.toContain('<text');
+  });
+
+  it('honors label, badge color and escapes TeX specials in the label', async () => {
+    const svg = await toBadge('x', { label: 'a_b & c', badgeColor: '007ec6' });
+    expect(svg).toContain('<title>a_b &amp; c: x</title>');
+    expect(svg).toContain('fill="#007ec6"');
+  });
+
+  it('rasterizes cleanly', async () => {
+    const png = await svgToPng(await toBadge('sum_(i=1)^N 2^i'));
+    expect(png[0]).toBe(0x89);
+  });
+
+  it('rejects bad input', async () => {
+    await expect(toBadge('')).rejects.toThrow(/Missing/);
+  });
+});
