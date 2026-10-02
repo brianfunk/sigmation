@@ -1,13 +1,114 @@
-[![Σigmation API](https://img.shields.io/badge/%CE%A3igmation-API-green.svg)](https://sigmation.herokuapp.com/math.svg?m=sum_(i=1)^N%202^i)
-[![Heroku](http://heroku-badge.herokuapp.com/?app=sigmation&style=flat)](https://sigmation.herokuapp.com/math.html?m=sum_(i=1)^N%202^i)
+[![Σigmation](https://sigmation.netlify.app/badge?m=sum_(i=1)^N%202^i&label=%CE%A3igmation)](https://sigmation.netlify.app)
+[![npm version](https://img.shields.io/npm/v/sigmation.svg)](https://www.npmjs.com/package/sigmation)
+[![CI](https://github.com/brianfunk/sigmation/actions/workflows/ci.yml/badge.svg)](https://github.com/brianfunk/sigmation/actions/workflows/ci.yml)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/7d7afa4e-4dc4-465a-a910-b89fba2cd442/deploy-status)](https://app.netlify.com/projects/sigmation/deploys)
 [![Semver](https://img.shields.io/badge/SemVer-2.0-blue.svg)](http://semver.org/spec/v2.0.0.html)
-[![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)](https://opensource.org/licenses/MIT)
+[![License](https://img.shields.io/github/license/mashape/apistatus.svg)](https://opensource.org/licenses/MIT)
 [![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badge/)
 [![LinkedIn](https://img.shields.io/badge/Linked-In-blue.svg)](https://www.linkedin.com/in/brianrandyfunk)
 
-# sigmation
-Σigmation API for rendering math (AsciiMath, TeX) in SVG, HTML, PNG, and MML
+# Σigmation
+
+> Math to SVG, PNG, MathML and README badges. One URL, no account.
+
+Paste a URL, get rendered math. Works anywhere an image works: Slack, Discord, Notion, email, blogs, GitHub READMEs. AsciiMath or TeX in, MathJax 4 out. Free API, npm library, CLI and GitHub Action, all from the same 200 lines of core.
+
+```
+https://sigmation.netlify.app/svg?m=sum_(i=1)^N 2^i
+https://sigmation.netlify.app/png?m=\frac{a}{b}&theme=dark&scale=3
+https://sigmation.netlify.app/badge?m=E=mc^2&label=physics
+```
+
+![sum](https://sigmation.netlify.app/png?m=sum_(i=1)^N%202^i&scale=3)
+![physics](https://sigmation.netlify.app/badge?m=E=mc^2&label=physics)
+
+Try it live at **[sigmation.netlify.app](https://sigmation.netlify.app)**.
+
+## API
+
+Every endpoint is a `GET`. Output is a pure function of the URL, so responses are immutable and cached for a year. Bad input returns a JSON `400` with an `error` message.
+
+| Route | Returns |
+|---|---|
+| `/svg?m=…` | `image/svg+xml` |
+| `/png?m=…` | `image/png` |
+| `/badge?m=…&label=…` | shields-style SVG badge |
+| `/mml?m=…` | `application/mathml+xml` |
+| `/html?m=…` | standalone HTML page |
+| `/math.{svg,png,mml,html}?m=…` | the 2017 routes, still alive |
+| `/api/…` | everything above, mirrored |
+
+| Param | Meaning | Default |
+|---|---|---|
+| `m` | the math (aliases `math`, `input`, `s`) | required |
+| `l` | `tex` or `ascii` | auto-detect (`\` or `$` means TeX) |
+| `theme` | `light` or `dark` (sets the ink color) | `light` |
+| `color` | hex ink color | `000000` |
+| `bg` | hex background or `transparent` | `transparent` |
+| `scale` | size multiplier, 0.25 to 8 | `1` (png: `2`) |
+| `inline` | `1` for text-style instead of display-style | `0` |
+| `w`, `h` | exact width or height in px (png only) | |
+| `label` | badge label | `Σ` |
+| `badgeColor` | badge right-side hex | `4c1` |
+
+Input is limited to 2000 characters. TeX runs with the standard MathJax packages minus `\require`.
+
+## npm
+
+```bash
+npm install sigmation
+```
+
+```js
+import { render, toSvg, toPng, toMml, toBadge, sigmation } from 'sigmation';
+
+const { svg, mml, width, height } = await render('sum_(i=1)^N 2^i');
+const png = await toPng('\\frac{a}{b}', { theme: 'dark', scale: 3 });
+const badge = await toBadge('E=mc^2', { label: 'physics' });
+
+// one call for any format
+const { body, contentType } = await sigmation('x^2', 'png', { bg: 'ffffff' });
+```
+
+All functions accept the same options as the API (`lang`, `inline`, `color`, `bg`, `theme`, `scale`, `width`, `height`, `label`, `badgeColor`). Bad input throws a `SigmationError`. Requires Node 22+.
+
+## CLI
+
+```bash
+npx sigmation 'sum_(i=1)^N 2^i' > sum.svg
+npx sigmation '\frac{a}{b}' -o frac.png --scale 3 --theme dark
+echo 'E=mc^2' | npx sigmation -f badge --label physics > badge.svg
+npx sigmation --help
+```
+
+The format is inferred from the `-o` extension, or set with `-f`.
+
+## GitHub Action
+
+Render equations into your repo at build time instead of hotlinking.
+
+```yaml
+- uses: brianfunk/sigmation/action@v1
+  with:
+    math: 'sum_(i=1)^N 2^i'
+    out: docs/sum.svg
+    theme: dark
+```
+
+Inputs: `math` (required), `out` (required), `format`, `lang`, `theme`, `color`, `bg`, `scale`, `label`.
+
+## Development
+
+```bash
+npm install
+npm test            # vitest
+npm run lint        # eslint
+npm run build       # lib + cli to dist/, site to dist/site
+netlify dev         # site + API on http://localhost:8890
+```
+
+Layout: `src/core` is the renderer (MathJax 4 + resvg WASM), `src/api` the Hono app, `src/cli.ts` the CLI, `src/site` the React playground, `netlify/functions/api.ts` the deploy wrapper.
 
 ## Copyright and license
 
-Code and documentation copyright 2016 Brian Funk. Code released under [the MIT license](https://opensource.org/licenses/MIT).
+Code and documentation copyright 2016-2026 Brian Funk. Code released under [the MIT license](https://opensource.org/licenses/MIT).

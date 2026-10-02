@@ -27,6 +27,7 @@
     "dev": "vite",
     "dev:api": "tsx src/api/server.ts",
     "build": "npm run build:lib && npm run build:site",
+    "prepublishOnly": "npm run lint && npm test && npm run build:lib",
     "build:lib": "tsup && tsc -p tsconfig.dts.json",
     "build:site": "vite build",
     "preview": "vite preview",
