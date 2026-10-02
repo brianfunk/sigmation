@@ -1,4 +1,4 @@
-[![Σigmation](https://sigmation.netlify.app/badge?m=sum_(i=1)^N%202^i&label=%CE%A3igmation)](https://sigmation.netlify.app)
+[![Σigmation](https://sigmations.netlify.app/badge?m=sum_(i=1)^N%202^i&label=%CE%A3igmation)](https://sigmations.netlify.app)
 [![npm version](https://img.shields.io/npm/v/sigmation.svg)](https://www.npmjs.com/package/sigmation)
 [![CI](https://github.com/brianfunk/sigmation/actions/workflows/ci.yml/badge.svg)](https://github.com/brianfunk/sigmation/actions/workflows/ci.yml)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/648ac12f-d7d2-4902-9c94-7ff5f0e0f5df/deploy-status)](https://app.netlify.com/projects/sigmation/deploys)
@@ -14,15 +14,15 @@
 Paste a URL, get rendered math. Works anywhere an image works: Slack, Discord, Notion, email, blogs, GitHub READMEs. AsciiMath or TeX in, MathJax 4 out. Free API, npm library, CLI and GitHub Action, all from the same 200 lines of core.
 
 ```
-https://sigmation.netlify.app/svg?m=sum_(i=1)^N 2^i
-https://sigmation.netlify.app/png?m=\frac{a}{b}&theme=dark&scale=3
-https://sigmation.netlify.app/badge?m=E=mc^2&label=physics
+https://sigmations.netlify.app/svg?m=sum_(i=1)^N 2^i
+https://sigmations.netlify.app/png?m=\frac{a}{b}&theme=dark&scale=3
+https://sigmations.netlify.app/badge?m=E=mc^2&label=physics
 ```
 
-![sum](https://sigmation.netlify.app/png?m=sum_(i=1)^N%202^i&scale=3)
-![physics](https://sigmation.netlify.app/badge?m=E=mc^2&label=physics)
+![sum](https://sigmations.netlify.app/png?m=sum_(i=1)^N%202^i&scale=3)
+![physics](https://sigmations.netlify.app/badge?m=E=mc^2&label=physics)
 
-Try it live at **[sigmation.netlify.app](https://sigmation.netlify.app)**.
+Try it live at **[sigmations.netlify.app](https://sigmations.netlify.app)**.
 
 ## API
 
@@ -111,7 +111,7 @@ Layout: `src/core` is the renderer (MathJax 4 + resvg WASM), `src/api` the Hono 
 
 ## Releasing
 
-Bump `version` in `package.json` and `CHANGELOG.md`, merge to `master`, then tag. The release workflow publishes to npm with provenance via trusted publishing (no token stored).
+Bump `version` in `package.json` and `CHANGELOG.md`, merge to `dev`, then tag. The release workflow publishes to npm with provenance via trusted publishing (no token stored).
 
 ```bash
 git tag v1.0.0 && git push origin v1.0.0

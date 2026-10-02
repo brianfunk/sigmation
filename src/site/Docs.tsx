@@ -1,4 +1,4 @@
-const BASE = 'https://sigmation.netlify.app';
+const BASE = 'https://sigmations.netlify.app';
 
 const PARAMS: Array<[string, string, string]> = [
   ['m', 'the math (aliases: math, input, s)', 'required'],

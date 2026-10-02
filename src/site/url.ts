@@ -49,7 +49,7 @@ export function buildPath(p: Params): string {
 }
 
 export function origin(): string {
-  if (typeof window === 'undefined') return 'https://sigmation.netlify.app';
+  if (typeof window === 'undefined') return 'https://sigmations.netlify.app';
   const o = window.location.origin;
-  return o.includes('localhost') ? o : 'https://sigmation.netlify.app';
+  return o.includes('localhost') ? o : 'https://sigmations.netlify.app';
 }
