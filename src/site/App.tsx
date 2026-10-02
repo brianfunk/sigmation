@@ -1,15 +1,16 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, type JSX } from 'react';
 import { EXAMPLES } from './examples';
 import { DEFAULTS, buildPath, origin, type Format, type Params } from './url';
 import Docs from './Docs';
 import Nav from './Nav';
+import { BadgeIcon, CheckIcon, CodeIcon, DownloadIcon, HtmlIcon, ImageIcon, LinkIcon, MarkdownIcon, MathMLIcon, VectorIcon } from './Icons';
 
-const FORMATS: Array<{ id: Format; name: string }> = [
-  { id: 'svg', name: 'SVG' },
-  { id: 'png', name: 'PNG' },
-  { id: 'badge', name: 'Badge' },
-  { id: 'mml', name: 'MathML' },
-  { id: 'html', name: 'HTML' },
+const FORMATS: Array<{ id: Format; name: string; icon: () => JSX.Element; ext: string }> = [
+  { id: 'svg', name: 'SVG', icon: VectorIcon, ext: 'svg' },
+  { id: 'png', name: 'PNG', icon: ImageIcon, ext: 'png' },
+  { id: 'badge', name: 'Badge', icon: BadgeIcon, ext: 'svg' },
+  { id: 'mml', name: 'MathML', icon: MathMLIcon, ext: 'mml' },
+  { id: 'html', name: 'HTML', icon: HtmlIcon, ext: 'html' },
 ];
 
 function useDebounced<T>(value: T, ms: number): T {
@@ -21,8 +22,9 @@ function useDebounced<T>(value: T, ms: number): T {
   return v;
 }
 
-function CopyButton({ text, label }: { text: string; label: string }) {
+function CopyButton({ text, label, icon }: { text: string; label: string; icon: () => JSX.Element }) {
   const [done, setDone] = useState(false);
+  const Icon = done ? CheckIcon : icon;
   return (
     <button
       type="button"
@@ -37,6 +39,7 @@ function CopyButton({ text, label }: { text: string; label: string }) {
         }
       }}
     >
+      <Icon />
       {done ? 'Copied' : label}
     </button>
   );
@@ -94,7 +97,7 @@ export default function App() {
           <h1>
             <span className="sigma">Σ</span>igmation
           </h1>
-          <p className="tagline">Math to SVG, PNG, MathML and badges. One URL, no account.</p>
+          <p className="tagline">Math to SVG, PNG, MathML and badges.</p>
         </div>
       </header>
 
@@ -131,76 +134,83 @@ export default function App() {
             </div>
           </div>
 
-          <div className={`preview ${previewDark ? 'dark' : ''} ${p.format === 'badge' ? 'badge' : ''}`} aria-live="polite">
-            {empty ? (
-              <p className="muted">Type some math to get started</p>
-            ) : preview.error ? (
-              <p className="err">{preview.error}</p>
-            ) : preview.svg ? (
-              <div className={`svg ${stale ? 'stale' : ''}`} dangerouslySetInnerHTML={{ __html: preview.svg }} />
-            ) : (
-              <p className="muted">Rendering…</p>
-            )}
-          </div>
-
-          <div className="controls">
-            <div className="seg" role="radiogroup" aria-label="Output format">
-              {FORMATS.map((f) => (
-                <button key={f.id} type="button" role="radio" aria-checked={p.format === f.id} className={p.format === f.id ? 'on' : ''} onClick={() => set('format', f.id)}>
-                  {f.name}
-                </button>
-              ))}
-            </div>
-
-            <div className="grid">
-              <label>
-                Theme
-                <select value={p.theme} onChange={(e) => set('theme', e.target.value as Params['theme'])}>
-                  <option value="light">Light (black ink)</option>
-                  <option value="dark">Dark (white ink)</option>
-                </select>
-              </label>
-              <label>
-                Color
-                <input type="text" value={p.color} placeholder={p.theme === 'dark' ? 'ffffff' : '000000'} onChange={(e) => set('color', e.target.value)} maxLength={9} />
-              </label>
-              <label>
-                Background
-                <input type="text" value={p.bg} placeholder="transparent" onChange={(e) => set('bg', e.target.value)} maxLength={11} />
-              </label>
-              <label className={p.format === 'badge' ? 'off' : ''}>
-                Scale
-                <input type="number" min={0.25} max={8} step={0.25} value={p.scale} onChange={(e) => set('scale', Number(e.target.value) || 1)} disabled={p.format === 'badge'} />
-              </label>
-              <label className={`check ${p.format === 'badge' ? 'off' : ''}`}>
-                <input type="checkbox" checked={p.inline} onChange={(e) => set('inline', e.target.checked)} disabled={p.format === 'badge'} />
-                Inline style
-              </label>
-              {p.format === 'badge' && (
-                <>
-                  <label>
-                    Badge label
-                    <input type="text" value={p.label} placeholder="Σ" onChange={(e) => set('label', e.target.value)} maxLength={40} />
-                  </label>
-                  <label>
-                    Badge color
-                    <input type="text" value={p.badgeColor} placeholder="4c1" onChange={(e) => set('badgeColor', e.target.value)} maxLength={9} />
-                  </label>
-                </>
+          <div className="output">
+            <div className={`preview ${previewDark ? 'dark' : ''} ${p.format === 'badge' ? 'badge' : ''}`} aria-live="polite">
+              {empty ? (
+                <p className="muted">Type some math to get started</p>
+              ) : preview.error ? (
+                <p className="err">{preview.error}</p>
+              ) : preview.svg ? (
+                <div className={`svg ${stale ? 'stale' : ''}`} dangerouslySetInnerHTML={{ __html: preview.svg }} />
+              ) : (
+                <p className="muted">Rendering…</p>
               )}
             </div>
-          </div>
 
-          <div className="out">
-            <code className="url" aria-label="Generated URL">
-              <a href={path} target="_blank" rel="noreferrer">
-                {url}
-              </a>
-            </code>
-            <div className="row">
-              <CopyButton text={embeds.link} label="Copy URL" />
-              <CopyButton text={embeds.markdown} label="Copy Markdown" />
-              <CopyButton text={embeds.html} label="Copy <img>" />
+            <div className="controls">
+              <div className="seg" role="radiogroup" aria-label="Output format">
+                {FORMATS.map((f) => (
+                  <button key={f.id} type="button" role="radio" aria-checked={p.format === f.id} className={p.format === f.id ? 'on' : ''} onClick={() => set('format', f.id)}>
+                    <f.icon />
+                    {f.name}
+                  </button>
+                ))}
+              </div>
+
+              <div className="grid">
+                <label>
+                  Theme
+                  <select value={p.theme} onChange={(e) => set('theme', e.target.value as Params['theme'])}>
+                    <option value="light">Light (black ink)</option>
+                    <option value="dark">Dark (white ink)</option>
+                  </select>
+                </label>
+                <label>
+                  Color
+                  <input type="text" value={p.color} placeholder={p.theme === 'dark' ? 'ffffff' : '000000'} onChange={(e) => set('color', e.target.value)} maxLength={9} />
+                </label>
+                <label>
+                  Background
+                  <input type="text" value={p.bg} placeholder="transparent" onChange={(e) => set('bg', e.target.value)} maxLength={11} />
+                </label>
+                <label className={p.format === 'badge' ? 'off' : ''}>
+                  Scale
+                  <input type="number" min={0.25} max={8} step={0.25} value={p.scale} onChange={(e) => set('scale', Number(e.target.value) || 1)} disabled={p.format === 'badge'} />
+                </label>
+                <label className={`check ${p.format === 'badge' ? 'off' : ''}`}>
+                  <input type="checkbox" checked={p.inline} onChange={(e) => set('inline', e.target.checked)} disabled={p.format === 'badge'} />
+                  Inline style
+                </label>
+                {p.format === 'badge' && (
+                  <>
+                    <label>
+                      Badge label
+                      <input type="text" value={p.label} placeholder="Σ" onChange={(e) => set('label', e.target.value)} maxLength={40} />
+                    </label>
+                    <label>
+                      Badge color
+                      <input type="text" value={p.badgeColor} placeholder="4c1" onChange={(e) => set('badgeColor', e.target.value)} maxLength={9} />
+                    </label>
+                  </>
+                )}
+              </div>
+            </div>
+
+            <div className="out">
+              <code className="url" aria-label="Generated URL">
+                <a href={path} target="_blank" rel="noreferrer">
+                  {url}
+                </a>
+              </code>
+              <div className="row">
+                <CopyButton text={embeds.link} label="Copy URL" icon={LinkIcon} />
+                <CopyButton text={embeds.markdown} label="Copy Markdown" icon={MarkdownIcon} />
+                <CopyButton text={embeds.html} label="Copy <img>" icon={CodeIcon} />
+                <a className="btn" href={path} download={`sigmation.${FORMATS.find((f) => f.id === p.format)?.ext ?? 'svg'}`}>
+                  <DownloadIcon />
+                  Download
+                </a>
+              </div>
             </div>
           </div>
         </section>

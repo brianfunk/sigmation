@@ -59,9 +59,7 @@ export default function Nav() {
 
   return (
     <nav className="nav wrap" aria-label="Site">
-      <a className="brand" href="/">
-        <span className="sigma">Σ</span>igmation
-      </a>
+      <span />
       <div className="links">
         <a href="https://github.com/brianfunk/sigmation" title="GitHub" aria-label="GitHub">
           <GitHubIcon />

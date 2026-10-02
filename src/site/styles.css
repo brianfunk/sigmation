@@ -43,20 +43,22 @@ a { color: var(--accent); }
 code, pre, textarea, .url { font-family: var(--mono); }
 .wrap { max-width: 920px; margin: 0 auto; padding: 0 16px; }
 
-.nav { display: flex; align-items: center; justify-content: space-between; padding-top: 14px; padding-bottom: 14px; }
-.brand { font-weight: 700; font-size: 1.15rem; color: var(--fg); text-decoration: none; letter-spacing: -0.01em; }
+.nav { display: flex; align-items: center; justify-content: flex-end; padding-top: 10px; padding-bottom: 0; }
 .links { display: flex; align-items: center; gap: 4px; }
 .links a, .links .mode { display: inline-flex; align-items: center; gap: 6px; padding: 6px 10px; border-radius: 8px; color: var(--fg); text-decoration: none; font-size: 0.9rem; border: 1px solid transparent; background: transparent; font: inherit; cursor: pointer; }
 .links a:hover, .links .mode:hover { border-color: var(--line); background: var(--panel); }
 .links svg { display: block; }
 
-.hero { padding: 24px 0 8px; }
+.hero { padding: 8px 0 8px; }
 .hero h1 { font-size: clamp(2rem, 6vw, 3rem); margin: 0; letter-spacing: -0.02em; }
 .sigma { color: var(--accent); }
 .tagline { margin: 4px 0 0; color: var(--muted); font-size: 1.05rem; }
 
 .play { display: grid; gap: 14px; margin-top: 20px; }
-.editor, .controls, .out, .preview { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px; }
+.editor, .output { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px; }
+.output { padding: 0; overflow: hidden; }
+.output .controls, .output .out { padding: 14px; }
+.output .controls { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
 .row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
 .between { justify-content: space-between; margin-bottom: 8px; }
 .lbl { font-weight: 600; }
@@ -64,11 +66,12 @@ textarea { width: 100%; resize: vertical; min-height: 72px; padding: 10px 12px; 
 textarea:focus, input:focus, select:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
 .chips { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
 .chip, .btn { border: 1px solid var(--line); background: var(--bg); color: var(--fg); border-radius: 999px; padding: 4px 12px; font: inherit; font-size: 0.9rem; cursor: pointer; }
+.btn { display: inline-flex; align-items: center; gap: 6px; text-decoration: none; }
 .chip:hover, .btn:hover { border-color: var(--accent); }
 .btn { border-radius: 8px; }
 
 /* The preview always shows the ink on a fixed light or dark checkerboard, independent of page theme. */
-.preview { min-height: 160px; display: grid; place-items: center; padding: 24px;
+.preview { min-height: 160px; display: grid; place-items: center; padding: 24px; border-radius: 0;
   background: repeating-conic-gradient(#e7e5e4 0 25%, #ffffff 0 50%) 0 0 / 16px 16px; }
 .preview.dark { background: repeating-conic-gradient(#2a2e2b 0 25%, #151715 0 50%) 0 0 / 16px 16px; }
 .preview .svg { display: contents; }
@@ -79,7 +82,7 @@ textarea:focus, input:focus, select:focus { outline: 2px solid var(--accent); ou
 .muted { color: var(--muted); }
 
 .seg { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
-.seg button { border: 0; background: transparent; color: var(--fg); padding: 6px 12px; font: inherit; font-size: 0.9rem; cursor: pointer; }
+.seg button { display: inline-flex; align-items: center; gap: 6px; border: 0; background: transparent; color: var(--fg); padding: 6px 12px; font: inherit; font-size: 0.9rem; cursor: pointer; }
 .seg button + button { border-left: 1px solid var(--line); }
 .seg button.on { background: var(--accent); color: var(--accent-ink); font-weight: 600; }
 
