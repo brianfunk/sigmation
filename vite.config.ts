@@ -20,7 +20,7 @@ export default defineConfig({
     strictPort: true,
     // During `vite` dev, proxy API calls to `netlify dev` (or `npm run dev:api`).
     proxy: Object.fromEntries(
-      ['/svg', '/png', '/mml', '/html', '/badge', '/math', '/render', '/openapi.json', '/api'].map((p) => [p, 'http://localhost:8890']),
+      ['/svg', '/png', '/mml', '/html', '/badge', '/math', '/render', '/openapi.json', '/api'].map((p) => [p, 'http://127.0.0.1:8890']),
     ),
   },
 });

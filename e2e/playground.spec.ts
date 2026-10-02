@@ -51,7 +51,7 @@ test('generated URL reflects options and renders', async ({ page, request }) => 
   const href = await page.locator('.url a').getAttribute('href');
   expect(href).toContain('theme=dark');
   expect(href).toContain('scale=3');
-  const res = await request.get('http://localhost:8890' + href);
+  const res = await request.get('http://127.0.0.1:8890' + href);
   expect(res.status()).toBe(200);
   expect(res.headers()['content-type']).toContain('image/svg+xml');
 });
