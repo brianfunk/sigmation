@@ -241,13 +241,13 @@ export default function App() {
                 </a>
               </code>
               <div className="row">
-                <CopyButton text={embeds.link} label="Copy URL" icon={LinkIcon} />
-                <CopyButton text={embeds.markdown} label="Copy Markdown" icon={MarkdownIcon} />
-                <CopyButton text={embeds.html} label="Copy <img>" icon={CodeIcon} />
                 <a className="btn" href={path} download={`sigmation.${FORMATS.find((f) => f.id === p.format)?.ext ?? 'svg'}`}>
                   <DownloadIcon />
                   Download
                 </a>
+                <CopyButton text={embeds.link} label="Copy URL" icon={LinkIcon} />
+                <CopyButton text={embeds.markdown} label="Copy Markdown" icon={MarkdownIcon} />
+                <CopyButton text={embeds.html} label="Copy <img>" icon={CodeIcon} />
                 <button type="button" className={`btn ${showQr ? 'on' : ''}`} onClick={() => setShowQr((v) => !v)} aria-pressed={showQr} title="QR code that opens this image">
                   <QrIcon />
                   QR
