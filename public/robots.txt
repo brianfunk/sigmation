@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 Disallow: /api/
-Sitemap: https://sigmations.netlify.app/sitemap.xml
+Sitemap: https://sigmation.dev/sitemap.xml

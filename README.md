@@ -1,4 +1,4 @@
-[![Σigmation](https://sigmations.netlify.app/badge?m=sum_(i=1)^N%202^i&label=%CE%A3igmation)](https://sigmations.netlify.app)
+[![Σigmation](https://sigmation.dev/badge?m=sum_(i=1)^N%202^i&label=%CE%A3igmation)](https://sigmation.dev)
 [![npm version](https://img.shields.io/npm/v/sigmation.svg)](https://www.npmjs.com/package/sigmation)
 [![CI](https://github.com/brianfunk/sigmation/actions/workflows/ci.yml/badge.svg)](https://github.com/brianfunk/sigmation/actions/workflows/ci.yml)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/648ac12f-d7d2-4902-9c94-7ff5f0e0f5df/deploy-status)](https://app.netlify.com/projects/sigmation/deploys)
@@ -14,15 +14,15 @@
 Paste a URL, get rendered math. Works anywhere an image works: Slack, Discord, Notion, email, blogs, GitHub READMEs. AsciiMath or TeX in, MathJax 4 out. Free API, npm library, CLI and GitHub Action, all from the same 200 lines of core.
 
 ```
-https://sigmations.netlify.app/svg?m=sum_(i=1)^N 2^i
-https://sigmations.netlify.app/png?m=\frac{a}{b}&theme=dark&scale=3
-https://sigmations.netlify.app/badge?m=E=mc^2&label=physics
+https://sigmation.dev/svg?m=sum_(i=1)^N 2^i
+https://sigmation.dev/png?m=\frac{a}{b}&theme=dark&scale=3
+https://sigmation.dev/badge?m=E=mc^2&label=physics
 ```
 
-![sum](https://sigmations.netlify.app/png?m=sum_(i=1)^N%202^i&scale=3)
-![physics](https://sigmations.netlify.app/badge?m=E=mc^2&label=physics)
+![sum](https://sigmation.dev/png?m=sum_(i=1)^N%202^i&scale=3)
+![physics](https://sigmation.dev/badge?m=E=mc^2&label=physics)
 
-Try it live at **[sigmations.netlify.app](https://sigmations.netlify.app)**. Interactive API reference (Swagger UI): **[sigmations.netlify.app/docs](https://sigmations.netlify.app/docs/)**, spec at [`/openapi.json`](https://sigmations.netlify.app/openapi.json).
+Try it live at **[sigmation.dev](https://sigmation.dev)**. Interactive API reference (Swagger UI): **[sigmation.dev/docs](https://sigmation.dev/docs/)**, spec at [`/openapi.json`](https://sigmation.dev/openapi.json).
 
 ## API
 
@@ -37,7 +37,7 @@ Every endpoint is a `GET`. Output is a pure function of the URL, so responses ar
 | `/html?m=…` | standalone HTML page with Open Graph tags, so the link unfurls as the rendered math in chat apps |
 | `/math.{svg,png,mml,html}?m=…` | the 2017 routes, still alive |
 | `/api/…` | everything above, mirrored |
-| `/openapi.json` | OpenAPI 3.1 spec, rendered at [`/docs/`](https://sigmations.netlify.app/docs/) |
+| `/openapi.json` | OpenAPI 3.1 spec, rendered at [`/docs/`](https://sigmation.dev/docs/) |
 | `/api/health` | `{ ok: true, formats: [...] }` |
 
 | Param | Meaning | Default |
@@ -103,7 +103,7 @@ Inputs: `math` (required), `out` (required), `format`, `lang`, `theme`, `color`,
 
 ## Playground
 
-The website at [sigmations.netlify.app](https://sigmations.netlify.app) is a playground: type AsciiMath or TeX, pick a format, theme, colors (with pickers), scale and layout, then copy the URL, Markdown or `<img>` tag, download the file, show a QR code that opens the image, or share a link that reopens the playground in the same state (the state is kept in the URL hash). Famous equations are one click away. It has a light/dark mode and links to the Swagger API reference, this repo and the npm package. Library, CLI and Action usage are documented here only, not on the site.
+The website at [sigmation.dev](https://sigmation.dev) is a playground: type AsciiMath or TeX, pick a format, theme, colors (with pickers), scale and layout, then copy the URL, Markdown or `<img>` tag, download the file, show a QR code that opens the image, or share a link that reopens the playground in the same state (the state is kept in the URL hash). Famous equations are one click away. It has a light/dark mode and links to the Swagger API reference, this repo and the npm package. Library, CLI and Action usage are documented here only, not on the site.
 
 ## Development
 

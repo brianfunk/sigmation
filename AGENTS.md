@@ -2,7 +2,7 @@
 
 ## Overview
 
-Σigmation renders AsciiMath or TeX to SVG, PNG, MathML, HTML and shields-style badges. One TypeScript core (`src/core`) serves four surfaces: an npm library, a CLI, an HTTP API on Netlify Functions, and a React playground at https://sigmations.netlify.app. It is a small, single-purpose project. Keep it that way.
+Σigmation renders AsciiMath or TeX to SVG, PNG, MathML, HTML and shields-style badges. One TypeScript core (`src/core`) serves four surfaces: an npm library, a CLI, an HTTP API on Netlify Functions, and a React playground at https://sigmation.dev. It is a small, single-purpose project. Keep it that way.
 
 ## Key functions (`src/core/index.ts`)
 
@@ -28,7 +28,7 @@ const badge = await toBadge('E=mc^2', { label: 'physics', bg: 'ffd700' });
 
 ```bash
 npx sigmation 'E=mc^2' -f badge --label physics > badge.svg
-curl 'https://sigmations.netlify.app/png?m=x^2&scale=3' -o x2.png
+curl 'https://sigmation.dev/png?m=x^2&scale=3' -o x2.png
 ```
 
 ## Workflow (required)

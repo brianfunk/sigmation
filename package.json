@@ -43,7 +43,7 @@
     "type": "git",
     "url": "git+https://github.com/brianfunk/sigmation.git"
   },
-  "homepage": "https://sigmations.netlify.app",
+  "homepage": "https://sigmation.dev",
   "bugs": {
     "url": "https://github.com/brianfunk/sigmation/issues"
   },

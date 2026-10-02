@@ -2,7 +2,7 @@ import { escapeXml } from './render.js';
 import type { Rendered } from './render.js';
 
 export interface HtmlOptions {
-  /** Absolute origin (e.g. https://sigmations.netlify.app). When given, the page gets Open Graph tags with a PNG of the equation. */
+  /** Absolute origin (e.g. https://sigmation.dev). When given, the page gets Open Graph tags with a PNG of the equation. */
   baseUrl?: string;
 }
 
