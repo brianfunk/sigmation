@@ -16,10 +16,11 @@
 import { render, type Rendered } from './render.js';
 import { svgToPng } from './png.js';
 import { toBadge } from './badge.js';
-import { toHtml } from './html.js';
+import { toHtml, type HtmlOptions } from './html.js';
 import { CONTENT_TYPES, normalizeInput, type Format, type RenderOptions } from './options.js';
 
 export { render, svgToPng, toBadge, toHtml };
+export type { HtmlOptions };
 export type { Rendered };
 export {
   CONTENT_TYPES,
@@ -57,7 +58,7 @@ export async function toMml(input: unknown, opts: RenderOptions = {}): Promise<s
 }
 
 /** One call for every format. Used by the CLI and the API. */
-export async function sigmation(input: unknown, format: Format = 'svg', opts: RenderOptions = {}): Promise<Output> {
+export async function sigmation(input: unknown, format: Format = 'svg', opts: RenderOptions = {}, html: HtmlOptions = {}): Promise<Output> {
   const contentType = CONTENT_TYPES[format];
   switch (format) {
     case 'png':
@@ -66,7 +67,7 @@ export async function sigmation(input: unknown, format: Format = 'svg', opts: Re
       return { body: await toBadge(input, opts), contentType, format };
     case 'html': {
       const r = await render(input, opts, 'html');
-      return { body: toHtml(normalizeInput(input), r), contentType, format };
+      return { body: toHtml(normalizeInput(input), r, html), contentType, format };
     }
     case 'mml':
       return { body: await toMml(input, opts), contentType, format };

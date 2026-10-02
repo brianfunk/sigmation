@@ -64,3 +64,15 @@ export const CheckIcon = () => (
     <path d="m5 12 4 4L19 7" />
   </I>
 );
+export const QrIcon = () => (
+  <I>
+    <rect x="3" y="3" width="7" height="7" /><rect x="14" y="3" width="7" height="7" /><rect x="3" y="14" width="7" height="7" />
+    <path d="M14 14h3v3h-3zM20 14v3M17 20h3M14 20h1" />
+  </I>
+);
+export const ShareIcon = () => (
+  <I>
+    <circle cx="18" cy="5" r="3" /><circle cx="6" cy="12" r="3" /><circle cx="18" cy="19" r="3" />
+    <path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4" />
+  </I>
+);

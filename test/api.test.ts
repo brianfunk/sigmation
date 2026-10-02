@@ -30,7 +30,9 @@ describe('api', () => {
     expect(await mml.text()).toContain('<mfrac');
 
     const html = await get('/html?m=x&theme=dark');
-    expect(await html.text()).toContain('<!doctype html>');
+    const page = await html.text();
+    expect(page).toContain('<!doctype html>');
+    expect(page).toMatch(/og:image" content="http:\/\/localhost\/png\?m=x/);
 
     const badge = await get('/badge?m=E=mc^2&label=physics');
     expect(await badge.text()).toContain('<title>physics: E=mc^2</title>');

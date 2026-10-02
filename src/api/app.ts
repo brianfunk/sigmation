@@ -43,7 +43,7 @@ function queryRaw(c: Context): Record<string, string | undefined> {
 
 async function handle(c: Context, format: Format): Promise<Response> {
   const raw = queryRaw(c);
-  const out = await sigmation(raw.m, format, optionsFromRaw(raw));
+  const out = await sigmation(raw.m, format, optionsFromRaw(raw), { baseUrl: new URL(c.req.url).origin });
   const etag = `"${createHash('sha1').update(c.req.url).digest('base64url').slice(0, 20)}"`;
   if (c.req.header('if-none-match') === etag) return c.body(null, 304);
 

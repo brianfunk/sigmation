@@ -1,9 +1,10 @@
 import { useEffect, useMemo, useState, type JSX } from 'react';
 import { EXAMPLES } from './examples';
-import { DEFAULTS, buildPath, origin, type Format, type Params } from './url';
+import { DEFAULTS, buildPath, decodeState, encodeState, origin, type Format, type Params } from './url';
+import { renderSVG as qrSvg } from 'uqr';
 import Nav from './Nav';
 import ColorField from './ColorField';
-import { BadgeIcon, CheckIcon, CodeIcon, DownloadIcon, HtmlIcon, ImageIcon, LinkIcon, MarkdownIcon, MathMLIcon, VectorIcon } from './Icons';
+import { BadgeIcon, CheckIcon, CodeIcon, DownloadIcon, HtmlIcon, ImageIcon, LinkIcon, MarkdownIcon, MathMLIcon, QrIcon, ShareIcon, VectorIcon } from './Icons';
 
 const FORMATS: Array<{ id: Format; name: string; icon: () => JSX.Element; ext: string }> = [
   { id: 'svg', name: 'SVG', icon: VectorIcon, ext: 'svg' },
@@ -46,7 +47,9 @@ function CopyButton({ text, label, icon }: { text: string; label: string; icon: 
 }
 
 export default function App() {
-  const [p, setP] = useState<Params>(DEFAULTS);
+  const [p, setP] = useState<Params>(() => (typeof window === 'undefined' ? DEFAULTS : decodeState(window.location.hash)));
+  const [showQr, setShowQr] = useState(false);
+  const [shared, setShared] = useState(false);
   const set = <K extends keyof Params>(k: K, v: Params[K]) => setP((s) => ({ ...s, [k]: v }));
 
   const debounced = useDebounced(p, 300);
@@ -57,6 +60,28 @@ export default function App() {
     [debounced],
   );
   const url = `${origin()}${path}`;
+  const permalink = `${origin()}/${encodeState(debounced)}`;
+
+  // Keep the page URL in sync so it can be shared or bookmarked (no history entries).
+  useEffect(() => {
+    const hash = encodeState(debounced);
+    if (window.location.hash !== hash) window.history.replaceState(null, '', hash || window.location.pathname);
+  }, [debounced]);
+
+  async function share() {
+    const data = { title: `Σigmation: ${debounced.math}`, text: debounced.math, url: permalink };
+    try {
+      if (navigator.share && (!navigator.canShare || navigator.canShare(data))) {
+        await navigator.share(data);
+        return;
+      }
+      await navigator.clipboard.writeText(permalink);
+      setShared(true);
+      setTimeout(() => setShared(false), 1200);
+    } catch {
+      /* user cancelled or clipboard blocked */
+    }
+  }
 
   const [preview, setPreview] = useState<{ forPath: string; svg?: string; error?: string }>({ forPath: '' });
   const empty = !debounced.math.trim();
@@ -223,7 +248,21 @@ export default function App() {
                   <DownloadIcon />
                   Download
                 </a>
+                <button type="button" className={`btn ${showQr ? 'on' : ''}`} onClick={() => setShowQr((v) => !v)} aria-pressed={showQr} title="QR code that opens this image">
+                  <QrIcon />
+                  QR
+                </button>
+                <button type="button" className="btn" onClick={share} title="Share a link to this equation in the playground">
+                  {shared ? <CheckIcon /> : <ShareIcon />}
+                  {shared ? 'Link copied' : 'Share'}
+                </button>
               </div>
+              {showQr && !empty && (
+                <div className="qr">
+                  <div className="qrcode" dangerouslySetInnerHTML={{ __html: qrSvg(url, { border: 1, pixelSize: 4 }) }} />
+                  <p className="muted">Scan to open the rendered image.</p>
+                </div>
+              )}
             </div>
           </div>
         </section>

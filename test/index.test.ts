@@ -32,5 +32,9 @@ describe('sigmation()', () => {
     expect(toHtml('x', r)).toContain('background:#111');
     const l = await render('x', { bg: '#eee' });
     expect(toHtml('x', l)).toContain('background:#eee');
+    expect(toHtml('x', l)).not.toContain('og:image');
+    const withOg = toHtml('a<b', r, { baseUrl: 'https://example.test/' });
+    expect(withOg).toContain('property="og:image" content="https://example.test/png?m=a%3Cb&amp;l=ascii&amp;scale=4&amp;color=ffffff&amp;bg=111111"');
+    expect(withOg).toContain('<meta property="og:title" content="a&lt;b">');
   });
 });
