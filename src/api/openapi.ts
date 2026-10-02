@@ -1,6 +1,6 @@
 import { FORMATS, MAX_INPUT_LENGTH } from '../core/options.js';
 
-const SERVER = 'https://sigmations.netlify.app';
+const SERVER = 'https://sigmation.dev';
 
 const q = (name: string, description: string, schema: object, required = false) => ({
   name,

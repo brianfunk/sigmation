@@ -19,7 +19,7 @@ All notable changes to this project are documented here. The format follows [Kee
 ### Changed
 - Website is the playground only: npm, CLI and GitHub Action docs live in the README. Logo and wordmark moved into the header; footer shows a year-aware copyright and no personal name.
 - Format tab order: SVG, PNG, MathML, HTML, Badge. The `inline` option is labeled "Compact (text style)".
-- Site URL is `sigmations.netlify.app`; `dev` is the production branch.
+- Site URL is `sigmation.dev` (custom domain, replacing sigmations.netlify.app); `dev` is the production branch.
 
 ## [1.0.4] - 2026-10-02
 
