@@ -98,6 +98,7 @@ textarea:focus, input:focus, select:focus { outline: 2px solid var(--accent); ou
 .grid label { display: flex; flex-direction: column; gap: 4px; font-size: 0.85rem; color: var(--muted); }
 .grid label.check { flex-direction: row; align-items: center; align-self: end; gap: 8px; padding-bottom: 8px; color: var(--fg); }
 .grid label.off { opacity: 0.45; }
+.grid > * { min-width: 0; }
 .colorfield { display: flex; flex-direction: column; gap: 4px; font-size: 0.85rem; color: var(--muted); }
 .swatchrow { display: flex; align-items: stretch; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); overflow: hidden; }
 .swatchrow:focus-within { outline: 2px solid var(--accent); outline-offset: 1px; }
@@ -107,7 +108,7 @@ textarea:focus, input:focus, select:focus { outline: 2px solid var(--accent); ou
 .swatchrow .swatch input::-webkit-color-swatch-wrapper { padding: 0; }
 .swatchrow .swatch input::-webkit-color-swatch { border: 0; }
 .swatchrow.transparent .swatch input { opacity: 0; }
-.swatchrow input[type="text"] { flex: 1; min-width: 0; border: 0; background: transparent; color: var(--fg); padding: 7px 9px; font: inherit; font-family: var(--mono); font-size: 0.9rem; }
+.swatchrow input[type="text"] { flex: 1 1 0; width: 100%; min-width: 0; border: 0; background: transparent; color: var(--fg); padding: 7px 9px; font: inherit; font-family: var(--mono); font-size: 0.9rem; }
 .swatchrow input[type="text"]:focus { outline: none; }
 .swatchrow .clear { border: 0; background: transparent; color: var(--muted); padding: 0 10px; font-size: 1.1rem; cursor: pointer; }
 .swatchrow .clear:hover { color: var(--fg); }
@@ -132,5 +133,11 @@ textarea:focus, input:focus, select:focus { outline: 2px solid var(--accent); ou
 @media (max-width: 600px) {
   .hero { padding-top: 16px; }
   .links a span { display: none; }
+  /* Segmented controls wrap into a tidy grid instead of overflowing. */
+  .seg { flex-wrap: wrap; }
+  .seg button { flex: 1 1 auto; justify-content: center; border-left: 0; border-top: 1px solid var(--line); margin-top: -1px; }
+  .seg button + button { border-left: 1px solid var(--line); }
+  .seg button:first-child { border-top: 0; margin-top: 0; }
+  .qr { flex-wrap: wrap; }
   .grid { grid-template-columns: 1fr 1fr; }
 }

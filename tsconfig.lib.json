@@ -17,5 +17,5 @@
     "composite": true,
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.lib.tsbuildinfo"
   },
-  "include": ["src/core", "src/api", "src/cli.ts", "src/mathjax.d.ts", "netlify", "test", "scripts", "tsup.config.ts", "vite.config.ts", "vitest.config.ts"]
+  "include": ["src/core", "src/api", "src/cli.ts", "src/mathjax.d.ts", "netlify", "test", "scripts", "e2e", "playwright.config.ts", "tsup.config.ts", "vite.config.ts", "vitest.config.ts"]
 }
