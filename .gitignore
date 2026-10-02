@@ -44,3 +44,6 @@ dist
 
 # Netlify
 .netlify
+
+# Netlify dev artifacts
+deno.lock
