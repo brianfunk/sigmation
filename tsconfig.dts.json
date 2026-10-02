@@ -1,0 +1,13 @@
+{
+  "extends": "./tsconfig.lib.json",
+  "compilerOptions": {
+    "composite": false,
+    "noEmit": false,
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "rootDir": "src/core",
+    "outDir": "dist",
+    "tsBuildInfoFile": null
+  },
+  "include": ["src/core", "src/mathjax.d.ts"]
+}
