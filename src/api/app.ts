@@ -17,6 +17,7 @@ import { Hono, type Context } from 'hono';
 import { cors } from 'hono/cors';
 import { createHash } from 'node:crypto';
 import { FORMATS, SigmationError, normalizeFormat, optionsFromRaw, sigmation, type Format } from '../core/index.js';
+import { openapi } from './openapi.js';
 
 const ONE_YEAR = 'public, max-age=31536000, immutable';
 
@@ -75,6 +76,7 @@ app.notFound((c) => c.json({ error: 'Not found', routes: FORMATS.map((f) => `/${
 const routes = new Hono();
 
 routes.get('/health', (c) => c.json({ ok: true, formats: FORMATS }));
+routes.get('/openapi.json', (c) => c.json(openapi, 200, { 'Cache-Control': 'public, max-age=3600' }));
 
 // Primary routes: /svg /png /mml /html /badge
 for (const f of FORMATS) routes.get(`/${f}`, (c) => handle(c, f));

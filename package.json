@@ -26,6 +26,7 @@
   "scripts": {
     "dev": "vite",
     "dev:api": "tsx src/api/server.ts",
+    "assets": "tsx scripts/assets.mts",
     "build": "npm run build:lib && npm run build:site",
     "prepublishOnly": "npm run lint && npm test && npm run build:lib",
     "build:lib": "tsup && tsc -p tsconfig.dts.json",

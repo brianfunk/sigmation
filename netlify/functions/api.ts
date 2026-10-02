@@ -17,5 +17,5 @@ export default (req: Request, context: unknown) => {
 };
 
 export const config: Config = {
-  path: ['/svg', '/png', '/mml', '/html', '/badge', '/math', '/math.*', '/render', '/api/*'],
+  path: ['/svg', '/png', '/mml', '/html', '/badge', '/math', '/math.*', '/render', '/openapi.json', '/api/*'],
 };

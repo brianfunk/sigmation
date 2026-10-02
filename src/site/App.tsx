@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState, type JSX } from 'react';
 import { EXAMPLES } from './examples';
 import { DEFAULTS, buildPath, origin, type Format, type Params } from './url';
-import Docs from './Docs';
 import Nav from './Nav';
 import { BadgeIcon, CheckIcon, CodeIcon, DownloadIcon, HtmlIcon, ImageIcon, LinkIcon, MarkdownIcon, MathMLIcon, VectorIcon } from './Icons';
 
@@ -94,10 +93,7 @@ export default function App() {
       <Nav />
       <header className="hero">
         <div className="wrap">
-          <h1>
-            <span className="sigma">Σ</span>igmation
-          </h1>
-          <p className="tagline">Math to SVG, PNG, MathML and badges.</p>
+          <h1 className="tagline">Math to SVG, PNG, MathML and badges.</h1>
         </div>
       </header>
 
@@ -215,12 +211,13 @@ export default function App() {
           </div>
         </section>
 
-        <Docs />
       </main>
 
       <footer className="wrap foot">
         <p>
-          <a href="https://github.com/brianfunk/sigmation">Source</a> · <a href="https://www.npmjs.com/package/sigmation">Package</a> · MIT license
+          <img className="mark" src="/favicon.svg" alt="" width="20" height="20" /> © {new Date().getFullYear()} Σigmation ·{' '}
+          <a href="https://github.com/brianfunk/sigmation">Source</a> ·{' '}
+          <a href="https://www.npmjs.com/package/sigmation">Package</a> · <a href="https://opensource.org/licenses/MIT">MIT license</a>
         </p>
       </footer>
     </>

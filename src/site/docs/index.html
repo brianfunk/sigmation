@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Σigmation API reference</title>
+    <meta name="description" content="OpenAPI reference for the Σigmation math rendering API." />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/icon-192.png" type="image/png" sizes="192x192" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#16a34a" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://sigmations.netlify.app/docs/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Σigmation API reference" />
+    <meta property="og:description" content="OpenAPI reference for the Σigmation math rendering API." />
+    <meta property="og:image" content="https://sigmations.netlify.app/og.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swagger-ui-dist@5/swagger-ui.css" />
+    <style>
+      body { margin: 0; }
+      .topbar { display: none; }
+      .back { font: 14px/1 ui-sans-serif, system-ui, sans-serif; padding: 12px 20px; }
+      .back a { color: #16a34a; text-decoration: none; }
+      .swagger-ui .info .title { font-size: 2rem; }
+    </style>
+  </head>
+  <body>
+    <div class="back"><a href="/">← Σigmation playground</a></div>
+    <div id="swagger"></div>
+    <script src="https://cdn.jsdelivr.net/npm/swagger-ui-dist@5/swagger-ui-bundle.js" crossorigin></script>
+    <script>
+      window.addEventListener('load', () => {
+        window.ui = SwaggerUIBundle({
+          url: '/openapi.json',
+          dom_id: '#swagger',
+          deepLinking: true,
+          tryItOutEnabled: true,
+          defaultModelsExpandDepth: 0,
+          displayRequestDuration: true,
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -28,6 +28,14 @@ export function NpmIcon() {
   );
 }
 
+export function ApiIcon() {
+  return (
+    <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M4 7h16M4 12h10M4 17h7" />
+    </svg>
+  );
+}
+
 function SunIcon() {
   return (
     <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
@@ -59,8 +67,15 @@ export default function Nav() {
 
   return (
     <nav className="nav wrap" aria-label="Site">
-      <span />
+      <a className="brand" href="/" aria-label="Σigmation home">
+        <img src="/favicon.svg" alt="" width="28" height="28" />
+        <span><span className="sigma">Σ</span>igmation</span>
+      </a>
       <div className="links">
+        <a href="/docs/" title="API reference">
+          <ApiIcon />
+          <span>API</span>
+        </a>
         <a href="https://github.com/brianfunk/sigmation" title="GitHub" aria-label="GitHub">
           <GitHubIcon />
           <span>GitHub</span>

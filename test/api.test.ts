@@ -80,3 +80,16 @@ describe('api', () => {
     expect((await res.json()).routes).toContain('/png?m=...');
   });
 });
+
+describe('openapi', () => {
+  it('serves a spec whose paths match the live routes', async () => {
+    const res = await get('/openapi.json');
+    expect(res.status).toBe(200);
+    const spec = (await res.json()) as { openapi: string; paths: Record<string, unknown> };
+    expect(spec.openapi).toBe('3.1.0');
+    for (const p of ['/svg', '/png', '/badge', '/mml', '/html', '/math', '/math.{ext}', '/api/health', '/openapi.json']) {
+      expect(spec.paths).toHaveProperty(p);
+    }
+    expect((await get('/api/openapi.json')).status).toBe(200);
+  });
+});
