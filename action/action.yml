@@ -1,0 +1,74 @@
+name: 'Sigmation'
+description: 'Render AsciiMath or TeX to an SVG, PNG, MathML, HTML or badge file.'
+author: 'Brian Funk'
+branding:
+  icon: 'sigma'
+  color: 'green'
+
+inputs:
+  math:
+    description: 'The math to render (AsciiMath or TeX).'
+    required: true
+  out:
+    description: 'Output file path. The format is inferred from its extension unless `format` is set.'
+    required: true
+  format:
+    description: 'svg, png, mml, html or badge.'
+    required: false
+    default: ''
+  lang:
+    description: 'tex or ascii. Default: auto-detect.'
+    required: false
+    default: ''
+  theme:
+    description: 'light or dark.'
+    required: false
+    default: ''
+  color:
+    description: 'Hex ink color.'
+    required: false
+    default: ''
+  bg:
+    description: 'Hex background or transparent.'
+    required: false
+    default: ''
+  scale:
+    description: 'Size multiplier, 0.25 to 8.'
+    required: false
+    default: ''
+  label:
+    description: 'Badge label (badge format only).'
+    required: false
+    default: ''
+  version:
+    description: 'sigmation npm version range to run.'
+    required: false
+    default: '^1'
+
+runs:
+  using: 'composite'
+  steps:
+    - shell: bash
+      env:
+        IN_MATH: ${{ inputs.math }}
+        IN_OUT: ${{ inputs.out }}
+        IN_FORMAT: ${{ inputs.format }}
+        IN_LANG: ${{ inputs.lang }}
+        IN_THEME: ${{ inputs.theme }}
+        IN_COLOR: ${{ inputs.color }}
+        IN_BG: ${{ inputs.bg }}
+        IN_SCALE: ${{ inputs.scale }}
+        IN_LABEL: ${{ inputs.label }}
+        IN_VERSION: ${{ inputs.version }}
+      run: |
+        set -euo pipefail
+        args=("$IN_MATH" -o "$IN_OUT")
+        [ -n "$IN_FORMAT" ] && args+=(-f "$IN_FORMAT")
+        [ -n "$IN_LANG" ]   && args+=(-l "$IN_LANG")
+        [ -n "$IN_THEME" ]  && args+=(--theme "$IN_THEME")
+        [ -n "$IN_COLOR" ]  && args+=(-c "$IN_COLOR")
+        [ -n "$IN_BG" ]     && args+=(--bg "$IN_BG")
+        [ -n "$IN_SCALE" ]  && args+=(-s "$IN_SCALE")
+        [ -n "$IN_LABEL" ]  && args+=(--label "$IN_LABEL")
+        mkdir -p "$(dirname "$IN_OUT")"
+        npx --yes "sigmation@${IN_VERSION}" "${args[@]}"

@@ -1,0 +1,37 @@
+# Sigmation on Netlify (team: Brian Funk)
+
+[build]
+  command = "npm run build"
+  publish = "dist/site"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+[dev]
+  command = "npm run dev"
+  targetPort = 5600
+  port = 8890
+
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+  # MathJax loads its components at runtime by path, and resvg needs its .wasm next to it,
+  # so ship these packages whole instead of bundling them.
+  external_node_modules = ["mathjax", "@mathjax/mathjax-newcm-font", "@resvg/resvg-wasm"]
+  included_files = [
+    "node_modules/mathjax/**",
+    "node_modules/@mathjax/mathjax-newcm-font/**",
+    "node_modules/@resvg/resvg-wasm/index_bg.wasm",
+  ]
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"

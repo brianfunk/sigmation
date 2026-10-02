@@ -1,0 +1,90 @@
+:root {
+  --bg: #fafaf9;
+  --fg: #1c1917;
+  --muted: #6b6560;
+  --panel: #ffffff;
+  --line: #e7e5e4;
+  --accent: #16a34a;
+  --accent-ink: #ffffff;
+  --err: #b91c1c;
+  --code: #f5f5f4;
+  --radius: 10px;
+  --font: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0f1110;
+    --fg: #e7e5e4;
+    --muted: #a8a29e;
+    --panel: #171a18;
+    --line: #2a2e2b;
+    --accent: #22c55e;
+    --accent-ink: #052e16;
+    --err: #f87171;
+    --code: #1f2321;
+  }
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.5 var(--font); }
+a { color: var(--accent); }
+code, pre, textarea, .url { font-family: var(--mono); }
+.wrap { max-width: 920px; margin: 0 auto; padding: 0 16px; }
+
+.hero { padding: 40px 0 8px; }
+.hero h1 { font-size: clamp(2rem, 6vw, 3rem); margin: 0; letter-spacing: -0.02em; }
+.sigma { color: var(--accent); }
+.tagline { margin: 4px 0 0; color: var(--muted); font-size: 1.05rem; }
+
+.play { display: grid; gap: 14px; margin-top: 20px; }
+.editor, .controls, .out, .preview { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px; }
+.row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.between { justify-content: space-between; margin-bottom: 8px; }
+.lbl { font-weight: 600; }
+textarea { width: 100%; resize: vertical; min-height: 72px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); color: var(--fg); font-size: 1.05rem; }
+textarea:focus, input:focus, select:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+.chips { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
+.chip, .btn { border: 1px solid var(--line); background: var(--bg); color: var(--fg); border-radius: 999px; padding: 4px 12px; font: inherit; font-size: 0.9rem; cursor: pointer; }
+.chip:hover, .btn:hover { border-color: var(--accent); }
+.btn { border-radius: 8px; }
+
+/* The preview always shows the ink on a fixed light or dark checkerboard, independent of page theme. */
+.preview { min-height: 160px; display: grid; place-items: center; padding: 24px;
+  background: repeating-conic-gradient(#e7e5e4 0 25%, #ffffff 0 50%) 0 0 / 16px 16px; }
+.preview.dark { background: repeating-conic-gradient(#2a2e2b 0 25%, #151715 0 50%) 0 0 / 16px 16px; }
+.preview .svg { display: contents; }
+.preview .svg svg { max-width: 100%; height: auto; transition: opacity 0.15s; }
+.preview.badge .svg svg { height: 48px; width: auto; }
+.preview .stale svg { opacity: 0.5; }
+.err { color: var(--err); margin: 0; font-family: var(--mono); font-size: 0.95rem; background: var(--panel); padding: 6px 10px; border-radius: 6px; }
+.muted { color: var(--muted); }
+
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.seg button { border: 0; background: transparent; color: var(--fg); padding: 6px 12px; font: inherit; font-size: 0.9rem; cursor: pointer; }
+.seg button + button { border-left: 1px solid var(--line); }
+.seg button.on { background: var(--accent); color: var(--accent-ink); font-weight: 600; }
+
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-top: 12px; }
+.grid label { display: flex; flex-direction: column; gap: 4px; font-size: 0.85rem; color: var(--muted); }
+.grid label.check { flex-direction: row; align-items: center; align-self: end; gap: 8px; padding-bottom: 8px; color: var(--fg); }
+.grid label.off { opacity: 0.45; }
+.grid input, .grid select { padding: 7px 9px; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); color: var(--fg); font: inherit; font-size: 0.95rem; }
+
+.out .url { display: block; word-break: break-all; background: var(--code); padding: 10px 12px; border-radius: 8px; margin-bottom: 10px; font-size: 0.9rem; }
+
+.docs { margin-top: 48px; }
+.docs h2 { margin: 36px 0 8px; font-size: 1.4rem; }
+.docs h3 { margin: 24px 0 6px; font-size: 1.1rem; }
+.docs table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+.docs th, .docs td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.docs th { color: var(--muted); font-weight: 600; font-size: 0.85rem; }
+.docs pre { background: var(--code); padding: 12px 14px; border-radius: 8px; overflow-x: auto; font-size: 0.9rem; }
+.docs code { background: var(--code); padding: 1px 5px; border-radius: 4px; font-size: 0.92em; }
+.docs pre code { background: none; padding: 0; }
+
+.foot { margin: 56px auto 32px; color: var(--muted); font-size: 0.9rem; }
+
+@media (max-width: 600px) {
+  .hero { padding-top: 28px; }
+  .grid { grid-template-columns: 1fr 1fr; }
+}
