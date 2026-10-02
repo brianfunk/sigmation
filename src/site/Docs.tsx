@@ -1,5 +1,3 @@
-const BASE = 'https://sigmations.netlify.app';
-
 const PARAMS: Array<[string, string, string]> = [
   ['m', 'the math (aliases: math, input, s)', 'required'],
   ['l', 'tex or ascii', 'auto-detect'],
@@ -83,16 +81,6 @@ export default function Docs() {
           ))}
         </tbody>
       </table>
-
-      <h3>README badge</h3>
-      <p>Drop an equation into a badge. Both halves are vector paths, so it stays crisp anywhere shields.io badges work.</p>
-      <pre>
-        <code>{`![physics](${BASE}/badge?m=E=mc^2&label=physics)`}</code>
-      </pre>
-      <p>
-        <img src="/badge?m=E=mc^2&label=physics" alt="physics: E=mc^2" height={20} />{' '}
-        <img src="/badge?m=sum_(i=1)^N 2^i&label=math&badgeColor=007ec6" alt="math: sum" height={20} />
-      </p>
 
       <h2>npm</h2>
       <pre>
