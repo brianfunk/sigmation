@@ -34,7 +34,7 @@ Every endpoint is a `GET`. Output is a pure function of the URL, so responses ar
 | `/png?m=…` | `image/png` |
 | `/badge?m=…&label=…` | shields-style SVG badge |
 | `/mml?m=…` | `application/mathml+xml` |
-| `/html?m=…` | standalone HTML page |
+| `/html?m=…` | standalone HTML page with Open Graph tags, so the link unfurls as the rendered math in chat apps |
 | `/math.{svg,png,mml,html}?m=…` | the 2017 routes, still alive |
 | `/api/…` | everything above, mirrored |
 | `/openapi.json` | OpenAPI 3.1 spec, rendered at [`/docs/`](https://sigmations.netlify.app/docs/) |
@@ -103,7 +103,7 @@ Inputs: `math` (required), `out` (required), `format`, `lang`, `theme`, `color`,
 
 ## Playground
 
-The website at [sigmations.netlify.app](https://sigmations.netlify.app) is a playground: type AsciiMath or TeX, pick a format, theme, colors (with pickers), scale and layout, then copy the URL, Markdown or `<img>` tag or download the file. Famous equations are one click away. It has a light/dark mode and links to the Swagger API reference, this repo and the npm package. Library, CLI and Action usage are documented here only, not on the site.
+The website at [sigmations.netlify.app](https://sigmations.netlify.app) is a playground: type AsciiMath or TeX, pick a format, theme, colors (with pickers), scale and layout, then copy the URL, Markdown or `<img>` tag, download the file, show a QR code that opens the image, or share a link that reopens the playground in the same state (the state is kept in the URL hash). Famous equations are one click away. It has a light/dark mode and links to the Swagger API reference, this repo and the npm package. Library, CLI and Action usage are documented here only, not on the site.
 
 ## Development
 

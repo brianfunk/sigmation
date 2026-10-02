@@ -4,9 +4,9 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
-Website only; the npm package is unchanged since 1.0.2.
-
 ### Added
+- Playground state lives in the page URL hash, so a link to the site reopens the same equation, format and colors.
+- QR button (code that opens the rendered image) and Share button (Web Share API, falling back to copying the playground link).
 - Swagger UI API reference at `/docs/`, driven by an OpenAPI 3.1 spec served at `/openapi.json` (and `/api/openapi.json`). A test asserts the spec's paths match the live routes.
 - Playground: famous-equation samples (Pythagoras, mass–energy, Schrödinger, Einstein field, Newton, entropy, normal distribution, Fourier), color picker swatches for color, background and badge color, badge label dropdown, Download button, icons on format tabs and actions, light/dark mode toggle.
 - SEO and icons: canonical, Open Graph and Twitter tags, generated `og.png`, JSON-LD, web manifest, PNG icons, `robots.txt`, `sitemap.xml`. Favicon rebuilt from a MathJax Σ glyph path. `npm run assets` regenerates them.
@@ -18,6 +18,9 @@ Website only; the npm package is unchanged since 1.0.2.
 - Site URL is `sigmations.netlify.app`; `dev` is the production branch.
 
 ## [1.0.3] - 2026-10-02
+
+### Added
+- `/html` pages carry Open Graph and Twitter tags with a per-equation PNG, so pasting an `/html` link into Slack, Discord or X unfurls with the rendered math. Library: `toHtml(input, rendered, { baseUrl })` and `sigmation(..., { baseUrl })`.
 
 ### Changed
 - Badges honor `color` (ink for both halves, default white) and `bg` (label field, default `555`). Previously both were ignored.

@@ -25,8 +25,12 @@ npm run dev:api        # API only on :8890 via @hono/node-server, no Netlify
 - `src/api/app.ts`: Hono app. Pure function of the URL, so immutable cache + ETag.
 - `netlify/functions/api.ts`: Functions v2 wrapper with `config.path`. `netlify.toml` ships `mathjax`, its font package and the resvg wasm via `included_files` because MathJax loads components by path at runtime. Do not bundle them.
 - `src/api/openapi.ts`: OpenAPI 3.1 spec served at `/openapi.json`. Update it whenever a route or param changes; `test/api.test.ts` checks its paths against the routes.
-- `src/site`: Vite + React 19, no router, no state library. Multi-page: `index.html` (playground) and `docs/index.html` (Swagger UI from the jsdelivr CDN, reading `/openapi.json`).
+- `src/site`: Vite + React 19, no router, no state library. Playground state is serialized to the URL hash by `encodeState`/`decodeState` in `src/site/url.ts`; QR codes come from `uqr`. Multi-page: `index.html` (playground) and `docs/index.html` (Swagger UI from the jsdelivr CDN, reading `/openapi.json`).
 - `scripts/assets.mts` (`npm run assets`): regenerates `public/favicon.svg`, PNG icons and `og.png` using the renderer itself, so no fonts are needed. Rerun after changing the brand color or favicon.
+
+## Gotchas
+
+- `netlify dev` does not always rebuild the function when files under `src/core` change; restart it when an API response looks stale. Killing `netlify dev` leaves the child Vite on port 5600 alive, so free the port first (`kill $(lsof -t -iTCP:5600)`).
 
 ## Rules
 
