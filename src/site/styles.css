@@ -92,6 +92,19 @@ textarea:focus, input:focus, select:focus { outline: 2px solid var(--accent); ou
 .grid label { display: flex; flex-direction: column; gap: 4px; font-size: 0.85rem; color: var(--muted); }
 .grid label.check { flex-direction: row; align-items: center; align-self: end; gap: 8px; padding-bottom: 8px; color: var(--fg); }
 .grid label.off { opacity: 0.45; }
+.colorfield { display: flex; flex-direction: column; gap: 4px; font-size: 0.85rem; color: var(--muted); }
+.swatchrow { display: flex; align-items: stretch; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); overflow: hidden; }
+.swatchrow:focus-within { outline: 2px solid var(--accent); outline-offset: 1px; }
+.swatchrow .swatch { position: relative; width: 34px; flex: 0 0 34px; border-right: 1px solid var(--line); cursor: pointer;
+  background: repeating-conic-gradient(#bbb 0 25%, #fff 0 50%) 0 0 / 10px 10px; }
+.swatchrow .swatch input { position: absolute; inset: 0; width: 100%; height: 100%; padding: 0; border: 0; cursor: pointer; background: transparent; }
+.swatchrow .swatch input::-webkit-color-swatch-wrapper { padding: 0; }
+.swatchrow .swatch input::-webkit-color-swatch { border: 0; }
+.swatchrow.transparent .swatch input { opacity: 0; }
+.swatchrow input[type="text"] { flex: 1; min-width: 0; border: 0; background: transparent; color: var(--fg); padding: 7px 9px; font: inherit; font-family: var(--mono); font-size: 0.9rem; }
+.swatchrow input[type="text"]:focus { outline: none; }
+.swatchrow .clear { border: 0; background: transparent; color: var(--muted); padding: 0 10px; font-size: 1.1rem; cursor: pointer; }
+.swatchrow .clear:hover { color: var(--fg); }
 .grid input, .grid select { padding: 7px 9px; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); color: var(--fg); font: inherit; font-size: 0.95rem; }
 
 .out .url { display: block; word-break: break-all; background: var(--code); padding: 10px 12px; border-radius: 8px; margin-bottom: 10px; font-size: 0.9rem; }

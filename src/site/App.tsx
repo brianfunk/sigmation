@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState, type JSX } from 'react';
 import { EXAMPLES } from './examples';
 import { DEFAULTS, buildPath, origin, type Format, type Params } from './url';
 import Nav from './Nav';
+import ColorField from './ColorField';
 import { BadgeIcon, CheckIcon, CodeIcon, DownloadIcon, HtmlIcon, ImageIcon, LinkIcon, MarkdownIcon, MathMLIcon, VectorIcon } from './Icons';
 
 const FORMATS: Array<{ id: Format; name: string; icon: () => JSX.Element; ext: string }> = [
@@ -161,14 +162,14 @@ export default function App() {
                     <option value="dark">Dark (white ink)</option>
                   </select>
                 </label>
-                <label>
-                  Color
-                  <input type="text" value={p.color} placeholder={p.theme === 'dark' ? 'ffffff' : '000000'} onChange={(e) => set('color', e.target.value)} maxLength={9} />
-                </label>
-                <label>
-                  Background
-                  <input type="text" value={p.bg} placeholder="transparent" onChange={(e) => set('bg', e.target.value)} maxLength={11} />
-                </label>
+                <ColorField
+                  label="Color"
+                  value={p.color}
+                  fallback={p.theme === 'dark' ? 'ffffff' : '000000'}
+                  fallbackLabel={p.theme === 'dark' ? 'ffffff' : '000000'}
+                  onChange={(v) => set('color', v)}
+                />
+                <ColorField label="Background" value={p.bg} fallback="ffffff" fallbackLabel="transparent" onChange={(v) => set('bg', v)} />
                 <label className={p.format === 'badge' ? 'off' : ''}>
                   Scale
                   <input type="number" min={0.25} max={8} step={0.25} value={p.scale} onChange={(e) => set('scale', Number(e.target.value) || 1)} disabled={p.format === 'badge'} />
@@ -196,10 +197,7 @@ export default function App() {
                         <input type="text" value={p.label} onChange={(e) => set('label', e.target.value || 'label')} maxLength={40} />
                       </label>
                     )}
-                    <label>
-                      Badge color
-                      <input type="text" value={p.badgeColor} placeholder="4c1" onChange={(e) => set('badgeColor', e.target.value)} maxLength={9} />
-                    </label>
+                    <ColorField label="Badge color" value={p.badgeColor} fallback="4c1" fallbackLabel="4c1" onChange={(v) => set('badgeColor', v)} />
                   </>
                 )}
               </div>
