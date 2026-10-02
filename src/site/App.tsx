@@ -7,9 +7,9 @@ import { BadgeIcon, CheckIcon, CodeIcon, DownloadIcon, HtmlIcon, ImageIcon, Link
 const FORMATS: Array<{ id: Format; name: string; icon: () => JSX.Element; ext: string }> = [
   { id: 'svg', name: 'SVG', icon: VectorIcon, ext: 'svg' },
   { id: 'png', name: 'PNG', icon: ImageIcon, ext: 'png' },
-  { id: 'badge', name: 'Badge', icon: BadgeIcon, ext: 'svg' },
   { id: 'mml', name: 'MathML', icon: MathMLIcon, ext: 'mml' },
   { id: 'html', name: 'HTML', icon: HtmlIcon, ext: 'html' },
+  { id: 'badge', name: 'Badge', icon: BadgeIcon, ext: 'svg' },
 ];
 
 function useDebounced<T>(value: T, ms: number): T {
