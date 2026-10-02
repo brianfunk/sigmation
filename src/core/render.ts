@@ -36,7 +36,13 @@ export function getMathJax(): Promise<MJ> {
       svg: { fontCache: 'none', linebreaks: { inline: false } },
       startup: { typeset: false },
     })
-    .then(() => MathJax as unknown as MJ);
+    .then(() => {
+      const mj = MathJax as unknown as MJ;
+      if (typeof mj.tex2svgPromise !== 'function' || typeof mj.asciimath2svgPromise !== 'function') {
+        throw new Error('MathJax failed to load its input/output components');
+      }
+      return mj;
+    });
   return ready;
 }
 
