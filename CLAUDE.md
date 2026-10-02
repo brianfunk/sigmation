@@ -31,7 +31,7 @@ npm run dev:api        # API only on :8890 via @hono/node-server, no Netlify
 - ESM only, TypeScript strict, no new runtime dependencies without a reason in the PR.
 - Run `npm run lint && npx tsc -b && npm test` before every commit.
 - Update `CHANGELOG.md` for user-facing changes.
-- PRs target `dev`. `main` deploys to Netlify.
+- PRs target `dev`. `main` deploys to Netlify. Tags `vX.Y.Z` publish to npm via `.github/workflows/release.yml` (trusted publishing); `v1` is the floating Action tag.
 - Keep the ASCII-art Σ header in `src/core/index.ts`, `src/cli.ts`, and the site HTML.
 - Check PR comments (`gh pr view <n> --comments`) before continuing work on a branch.
 

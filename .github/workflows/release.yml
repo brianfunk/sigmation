@@ -1,0 +1,36 @@
+name: Release
+
+# Publishes to npm when a v* tag is pushed. Uses npm trusted publishing (OIDC),
+# so no NPM_TOKEN secret is needed. One-time setup on npmjs.com:
+#   package sigmation -> Settings -> Trusted publisher -> GitHub Actions
+#   owner: brianfunk, repo: sigmation, workflow: release.yml
+on:
+  push:
+    tags: ['v[0-9]+.[0-9]+.[0-9]+']
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          registry-url: https://registry.npmjs.org
+          cache: npm
+      - name: Update npm (trusted publishing needs 11.5+)
+        run: npm install -g npm@latest && npm --version
+      - run: npm ci
+      - name: Check tag matches package.json version
+        run: |
+          TAG="${GITHUB_REF_NAME#v}"
+          PKG="$(node -p "require('./package.json').version")"
+          [ "$TAG" = "$PKG" ] || { echo "tag v$TAG != package.json $PKG"; exit 1; }
+      - run: npm run lint
+      - run: npm test
+      - run: npm run build:lib
+      - run: npm publish --provenance --access public

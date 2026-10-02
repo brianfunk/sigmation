@@ -109,6 +109,15 @@ netlify dev         # site + API on http://localhost:8890
 
 Layout: `src/core` is the renderer (MathJax 4 + resvg WASM), `src/api` the Hono app, `src/cli.ts` the CLI, `src/site` the React playground, `netlify/functions/api.ts` the deploy wrapper.
 
+## Releasing
+
+Bump `version` in `package.json` and `CHANGELOG.md`, merge to `main`, then tag. The release workflow publishes to npm with provenance via trusted publishing (no token stored).
+
+```bash
+git tag v1.0.0 && git push origin v1.0.0
+git tag -f v1 && git push -f origin v1   # moves the Action's major tag
+```
+
 ## Copyright and license
 
 Code and documentation copyright 2016-2026 Brian Funk. Code released under [the MIT license](https://opensource.org/licenses/MIT).
