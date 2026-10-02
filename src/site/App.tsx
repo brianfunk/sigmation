@@ -173,9 +173,9 @@ export default function App() {
                   Scale
                   <input type="number" min={0.25} max={8} step={0.25} value={p.scale} onChange={(e) => set('scale', Number(e.target.value) || 1)} disabled={p.format === 'badge'} />
                 </label>
-                <label className={`check ${p.format === 'badge' ? 'off' : ''}`}>
+                <label className={`check ${p.format === 'badge' ? 'off' : ''}`} title="Text-style layout, as math set inside a sentence: limits beside operators, smaller fractions. Default is display style, as a standalone equation.">
                   <input type="checkbox" checked={p.inline} onChange={(e) => set('inline', e.target.checked)} disabled={p.format === 'badge'} />
-                  Inline style
+                  Compact (text style)
                 </label>
                 {p.format === 'badge' && (
                   <>
