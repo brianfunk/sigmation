@@ -24,7 +24,9 @@ npm run dev:api        # API only on :8890 via @hono/node-server, no Netlify
 - `src/core/options.ts`: the single place that parses and validates options for the API, CLI and library. Add new params here first.
 - `src/api/app.ts`: Hono app. Pure function of the URL, so immutable cache + ETag.
 - `netlify/functions/api.ts`: Functions v2 wrapper with `config.path`. `netlify.toml` ships `mathjax`, its font package and the resvg wasm via `included_files` because MathJax loads components by path at runtime. Do not bundle them.
-- `src/site`: Vite + React 19, no router, no state library.
+- `src/api/openapi.ts`: OpenAPI 3.1 spec served at `/openapi.json`. Update it whenever a route or param changes; `test/api.test.ts` checks its paths against the routes.
+- `src/site`: Vite + React 19, no router, no state library. Multi-page: `index.html` (playground) and `docs/index.html` (Swagger UI from the jsdelivr CDN, reading `/openapi.json`).
+- `scripts/assets.mts` (`npm run assets`): regenerates `public/favicon.svg`, PNG icons and `og.png` using the renderer itself, so no fonts are needed. Rerun after changing the brand color or favicon.
 
 ## Rules
 
@@ -33,6 +35,8 @@ npm run dev:api        # API only on :8890 via @hono/node-server, no Netlify
 - Update `CHANGELOG.md` for user-facing changes.
 - PRs target `dev`, which is also the production branch: merging deploys to https://sigmations.netlify.app. There is no master. Tags `vX.Y.Z` publish to npm via `.github/workflows/release.yml` (trusted publishing); `v1` is the floating Action tag.
 - Keep the ASCII-art Σ header in `src/core/index.ts`, `src/cli.ts`, and the site HTML.
+- Website content rules (from the owner): the site is the playground plus the Swagger API page. No npm, CLI or GitHub Action docs on the site, no README-style badge showcase, no personal name anywhere on the page. Logo and wordmark live in the header only; footer carries the Σ mark, a year-aware copyright, Source, Package and MIT links.
+- After any user-facing change, update README.md, CHANGELOG.md and this file in the same PR.
 - Check PR comments (`gh pr view <n> --comments`) before continuing work on a branch.
 
 ## Out of scope

@@ -2,6 +2,21 @@
 
 All notable changes to this project are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+Website only; the npm package is unchanged since 1.0.2.
+
+### Added
+- Swagger UI API reference at `/docs/`, driven by an OpenAPI 3.1 spec served at `/openapi.json` (and `/api/openapi.json`). A test asserts the spec's paths match the live routes.
+- Playground: famous-equation samples (Pythagoras, mass–energy, Schrödinger, Einstein field, Newton, entropy, normal distribution, Fourier), color picker swatches for color, background and badge color, badge label dropdown, Download button, icons on format tabs and actions, light/dark mode toggle.
+- SEO and icons: canonical, Open Graph and Twitter tags, generated `og.png`, JSON-LD, web manifest, PNG icons, `robots.txt`, `sitemap.xml`. Favicon rebuilt from a MathJax Σ glyph path. `npm run assets` regenerates them.
+- PNG transparency regression tests (fully transparent unless `bg` is set).
+
+### Changed
+- Website is the playground only: npm, CLI and GitHub Action docs live in the README. Logo and wordmark moved into the header; footer shows a year-aware copyright and no personal name.
+- Format tab order: SVG, PNG, MathML, HTML, Badge. The `inline` option is labeled "Compact (text style)".
+- Site URL is `sigmations.netlify.app`; `dev` is the production branch.
+
 ## [1.0.2] - 2026-10-02
 
 ### Fixed

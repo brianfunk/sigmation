@@ -9,7 +9,7 @@
 
 # Σigmation
 
-> Math to SVG, PNG, MathML and README badges. One URL, no account.
+> Math to SVG, PNG, MathML and badges.
 
 Paste a URL, get rendered math. Works anywhere an image works: Slack, Discord, Notion, email, blogs, GitHub READMEs. AsciiMath or TeX in, MathJax 4 out. Free API, npm library, CLI and GitHub Action, all from the same 200 lines of core.
 
@@ -22,7 +22,7 @@ https://sigmations.netlify.app/badge?m=E=mc^2&label=physics
 ![sum](https://sigmations.netlify.app/png?m=sum_(i=1)^N%202^i&scale=3)
 ![physics](https://sigmations.netlify.app/badge?m=E=mc^2&label=physics)
 
-Try it live at **[sigmations.netlify.app](https://sigmations.netlify.app)**.
+Try it live at **[sigmations.netlify.app](https://sigmations.netlify.app)**. Interactive API reference (Swagger UI): **[sigmations.netlify.app/docs](https://sigmations.netlify.app/docs/)**, spec at [`/openapi.json`](https://sigmations.netlify.app/openapi.json).
 
 ## API
 
@@ -37,6 +37,8 @@ Every endpoint is a `GET`. Output is a pure function of the URL, so responses ar
 | `/html?m=…` | standalone HTML page |
 | `/math.{svg,png,mml,html}?m=…` | the 2017 routes, still alive |
 | `/api/…` | everything above, mirrored |
+| `/openapi.json` | OpenAPI 3.1 spec, rendered at [`/docs/`](https://sigmations.netlify.app/docs/) |
+| `/api/health` | `{ ok: true, formats: [...] }` |
 
 | Param | Meaning | Default |
 |---|---|---|
@@ -97,6 +99,10 @@ Render equations into your repo at build time instead of hotlinking.
 
 Inputs: `math` (required), `out` (required), `format`, `lang`, `theme`, `color`, `bg`, `scale`, `label`.
 
+## Playground
+
+The website at [sigmations.netlify.app](https://sigmations.netlify.app) is a playground: type AsciiMath or TeX, pick a format, theme, colors (with pickers), scale and layout, then copy the URL, Markdown or `<img>` tag or download the file. Famous equations are one click away. It has a light/dark mode and links to the Swagger API reference, this repo and the npm package. Library, CLI and Action usage are documented here only, not on the site.
+
 ## Development
 
 ```bash
@@ -104,10 +110,22 @@ npm install
 npm test            # vitest
 npm run lint        # eslint
 npm run build       # lib + cli to dist/, site to dist/site
-netlify dev         # site + API on http://localhost:8890
+netlify dev         # site + API on http://localhost:8890 (Vite pinned to 5600)
+npm run dev:api     # API alone on :8890 without Netlify
+npm run assets      # regenerate favicon, PNG icons and og.png in public/
 ```
 
-Layout: `src/core` is the renderer (MathJax 4 + resvg WASM), `src/api` the Hono app, `src/cli.ts` the CLI, `src/site` the React playground, `netlify/functions/api.ts` the deploy wrapper.
+Layout:
+
+- `src/core`: the renderer (MathJax 4 + resvg WASM), options, badge, HTML wrapper
+- `src/api/app.ts`: the Hono app; `src/api/openapi.ts`: the OpenAPI spec it serves
+- `src/cli.ts`: the CLI
+- `src/site`: the React playground; `src/site/docs/`: the Swagger UI page
+- `netlify/functions/api.ts`: the Netlify Functions wrapper
+- `scripts/assets.mts`: generates the icons and Open Graph image in `public/`
+- `action/action.yml`: the composite GitHub Action
+
+Branches: `dev` is production and deploys to Netlify on every merge. PRs target `dev`.
 
 ## Releasing
 
