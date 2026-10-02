@@ -35,7 +35,7 @@ curl 'https://sigmation.dev/png?m=x^2&scale=3' -o x2.png
 
 1. **Never commit to `dev` directly.** It is the production branch and is protected: a PR with green CI is required to merge. Create a branch (`feat/...`, `fix/...`, `docs/...`), open a PR targeting `dev`, let CI pass, then merge.
 2. Before every commit: `npm run lint && npx tsc -b && npm test`. Run `npm run test:e2e` for any site change; CI runs it too. Do not drive the user's own browser for checks; Playwright is headless.
-3. Any user-facing change updates `README.md`, `CHANGELOG.md` and, if it changes how agents should work, this file and `CLAUDE.md`, in the same PR.
+3. Any user-facing change updates `README.md`, `CHANGELOG.md` and, if it changes how agents should work, this file, in the same PR. `AGENTS.md` is the only agent instructions file; do not add a `CLAUDE.md`.
 4. npm releases: bump `version` in `package.json`, move the changelog entry under that version, merge, then tag `vX.Y.Z`. The release workflow publishes with provenance via npm trusted publishing. Do not publish from a laptop.
 5. Check PR comments (`gh pr view <n> --comments`) before continuing work on a branch.
 
