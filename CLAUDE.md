@@ -1,5 +1,7 @@
 # Claude Code instructions for sigmation
 
+Read `AGENTS.md` first. It holds the project overview, API surface, required workflow (feature branch + PR to protected `dev`, checks before commit, docs in the same PR) and the non-obvious decisions. This file adds only Claude Code specifics.
+
 ## Project context
 
 Σigmation renders AsciiMath or TeX to SVG, PNG, MathML, HTML and shields-style badges. One core (`src/core`) serves four surfaces: npm library, CLI, HTTP API on Netlify Functions, and a React playground. It is a small, single-purpose, fun project. Keep it that way.
@@ -37,7 +39,7 @@ npm run dev:api        # API only on :8890 via @hono/node-server, no Netlify
 - ESM only, TypeScript strict, no new runtime dependencies without a reason in the PR.
 - Run `npm run lint && npx tsc -b && npm test` before every commit.
 - Update `CHANGELOG.md` for user-facing changes.
-- PRs target `dev`, which is also the production branch: merging deploys to https://sigmations.netlify.app. There is no master. Tags `vX.Y.Z` publish to npm via `.github/workflows/release.yml` (trusted publishing); `v1` is the floating Action tag.
+- Never commit to `dev` directly; it is protected. Branch, open a PR targeting `dev`, wait for CI, merge. `dev` is production and deploys to https://sigmations.netlify.app on merge. There is no master. Tags `vX.Y.Z` publish to npm via `.github/workflows/release.yml` (trusted publishing); `v1` is the floating Action tag.
 - Keep the ASCII-art Σ header in `src/core/index.ts`, `src/cli.ts`, and the site HTML.
 - Website content rules (from the owner): the site is the playground plus the Swagger API page. No npm, CLI or GitHub Action docs on the site, no README-style badge showcase, no personal name anywhere on the page. Logo and wordmark live in the header only; footer carries the Σ mark, a year-aware copyright, Source, Package and MIT links.
 - After any user-facing change, update README.md, CHANGELOG.md and this file in the same PR.
