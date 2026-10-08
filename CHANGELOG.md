@@ -4,6 +4,11 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+## [1.0.6] - 2026-10-07
+
+### Changed
+- Published from GitHub Actions via npm trusted publishing, with a provenance attestation. No code changes since 1.0.5.
+
 ## [1.0.5] - 2026-10-07
 
 ### Added
