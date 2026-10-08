@@ -4,6 +4,8 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+## [1.0.5] - 2026-10-07
+
 ### Added
 - Playwright e2e suite (`npm run test:e2e`, also in CI): no horizontal overflow at phone, tablet and desktop widths, badge and QR flows, hash round-trip, inline TeX errors, Swagger page.
 - Playground state lives in the page URL hash, so a link to the site reopens the same equation, format and colors.
